@@ -1,0 +1,821 @@
+{
+    "Header": {
+        "nav": {
+            "osago": "OSAGO",
+            "kasko": "KASKO",
+            "travel": "Sayohat sug'urtasi",
+            "about": "Biz haqimizda",
+            "contacts": "Kontaktlar"
+        },
+        "login": "Kirish",
+        "register": "Ro'yxatdan o'tish"
+    },
+    "DemoPagePlaceholder": {
+        "description": "Ushbu sahifa ishlab chiqish bosqichida. Sizga eng yaxshi xizmatni taqdim etish uchun uning ustida faol ishlayapmiz. Iltimos, birozdan so'ng qayta tashrif buyuring!",
+        "backToHome": "Bosh sahifaga qaytish"
+    },
+    "Footer": {
+        "slogan": "O'zbekistondagi har bir haydovchi uchun sug'urtani osonlashtiramiz.",
+        "company": {
+            "title": "Kompaniya",
+            "about": "Biz haqimizda",
+            "team": "Bizning jamoa",
+            "career": "Karyera",
+            "news": "Yangiliklar"
+        },
+        "services": {
+            "title": "Xizmatlar",
+            "osagoOnline": "OSAGO Onlayn",
+            "kaskoProtection": "KASKO Himoya",
+            "claims": "Sug'urta hodisalari",
+            "partners": "Hamkorlarga"
+        },
+        "support": {
+            "title": "Qo'llab-quvvatlash",
+            "help": "Yordam",
+            "contacts": "Kontaktlar",
+            "legalInfo": "Huquqiy ma'lumot"
+        },
+        "copyright": "© 2024 OsonPolis. Litsenziyalangan va tartibga solingan. Barcha huquqlar himoyalangan."
+    },
+    "Home": {
+        "partnerBadge": "Rasmiy sug'urta hamkori",
+        "heroTitle1": "Onlayn OSAGO",
+        "heroTitleHighlight": "5 daqiqada",
+        "heroSubtitle": "Ofisga bormasdan, avtosug'urtani tez, xavfsiz va ishonchli rasmiylashtirish. Biz yirik sug'urta kompaniyalari bilan to'g'ridan-to'g'ri ishlaymiz.",
+        "calcBtn": "Narxni hisoblash",
+        "howItWorksBtn": "Bu qanday ishlaydi",
+        "calcForm": {
+            "title": "Polisni hozir hisoblang",
+            "subtitle": "Yetakchi sug'urtachilardan eng yaxshi tariflarni darhol oling",
+            "plateLabel": "Avtomobil davlat raqami",
+            "platePlaceholder": "01 A 123 AA",
+            "licenseLabel": "Haydovchilik guvohnomasi",
+            "licensePlaceholder": "AA 1234567",
+            "driversLabel": "Haydovchilar soni",
+            "driversPlaceholder": "Miqdorni tanlang",
+            "driversLimited": "5 kishigacha",
+            "driversUnlimited": "Cheklovsiz",
+            "submitBtn": "Rasmiylashtirish",
+            "errors": {
+                "plate": "Davlat raqami kiritilishi shart",
+                "license": "Haydovchilik guvohnomasi kiritilishi shart",
+                "drivers": "Haydovchilar sonini tanlang"
+            }
+        },
+        "offers": {
+            "title": "Mavjud takliflar",
+            "priceLabel": "Polis narxi",
+            "currency": "so'm",
+            "selectBtn": "Tanlash"
+        },
+        "products": {
+            "title": "Bizning mahsulotlar",
+            "subtitle": "Xavfsizligingiz va xotirjamligingiz uchun mos sug'urta turini tanlang.",
+            "osago": {
+                "title": "OSAGO",
+                "desc": "Majburiy fuqarolik javobgarligi sug'urtasi. YTH holatida byudjetingizni himoya qiladi."
+            },
+            "kasko": {
+                "title": "KASKO",
+                "desc": "Avtomobilingizni o'g'irlik, zarar va boshqa xavflardan ixtiyoriy sug'urtalash."
+            },
+            "travel": {
+                "title": "Sayohat sug'urtasi",
+                "desc": "Chet elga chiqish uchun tibbiy sug'urta. Dunyoning istalgan nuqtasida sizning himoyangiz."
+            },
+            "moreBtn": "Batafsil"
+        },
+        "steps": {
+            "title": "Bu qanday ishlaydi",
+            "subtitle": "Uchta oddiy qadamda sug'urta polisini oling. Navbatlarsiz va qog'ozbozliksiz, to'liq onlayn.",
+            "step1": {
+                "title": "Ma'lumotlarni kiriting",
+                "desc": "Xavfsiz formamizda avtomobil va haydovchi haqidagi ma'lumotlarni to'ldiring."
+            },
+            "step2": {
+                "title": "Takliflarni oling",
+                "desc": "Yetakchi sug'urta kompaniyalarining narxlarini darhol solishtiring."
+            },
+            "step3": {
+                "title": "Polisni oling",
+                "desc": "Sanoqli daqiqalarda email va SMS orqali rasmiy elektron polisni oling."
+            }
+        },
+        "trustBadge": "Yetakchi sug'urta kompaniyalari bizga ishonadi",
+        "footer": {
+            "copyrightText": "OsonPolis Sug'urta. Barcha huquqlar himoyalangan.",
+            "privacy": "Maxfiylik siyosati",
+            "terms": "Foydalanish shartlari"
+        }
+    },
+    "About": {
+        "hero": {
+            "title": "Insoniy yuzli sug'urta",
+            "step2": "OsonPolis shaffoflik, tezlik va ishonchlilikka ishonadi. Biz O'zbekistonda texnologiyalar va ishonch yordamida OSAGO tajribasini modernizatsiya qilmoqdamiz.",
+            "subtitle": "OsonPolis shaffoflik, tezlik va ishonchlilikka ishonadi. Biz O'zbekistonda texnologiyalar va ishonch yordamida OSAGO tajribasini modernizatsiya qilmoqdamiz.",
+            "btn": "Bizning tariximizni bilish"
+        },
+        "mission": {
+            "label": "Bizning missiyamiz",
+            "title": "Zamonaviy haydovchi uchun himoyani qayta o'ylab topish",
+            "desc": "Toshkentda asos solingan OsonPolis oddiy kuzatuvdan kelib chiqqan: avtosug'urta olish qiyin bo'lmasligi kerak. Biz byurokratiyani bartaraf etuvchi, qonunchilikka 100% rioya qilgan holda OSAGOni bir zumda rasmiylashtiruvchi platforma yaratdik.",
+            "stats": {
+                "policies": "500m+",
+                "policiesLabel": "Berilgan polislar",
+                "uptime": "99.9%",
+                "uptimeLabel": "Tizim ishlash vaqti"
+            }
+        },
+        "team": {
+            "label": "Rahbariyat",
+            "title": "Jamoamiz bilan tanishing",
+            "subtitle": "Har bir fuqaro uchun sug'urtani ochiq va ishonchli qilishga intiluvchi ekspertlar.",
+            "members": {
+                "ceo": {
+                    "name": "Anvar Qosimov",
+                    "role": "Bosh direktor va Asoschi"
+                },
+                "coo": {
+                    "name": "Yelena Volkova",
+                    "role": "Operatsion direktor"
+                },
+                "cto": {
+                    "name": "Rustam Aliyev",
+                    "role": "Texnik direktor"
+                },
+                "cs": {
+                    "name": "Dilnoza Karimova",
+                    "role": "Mijozlarga xizmat"
+                }
+            }
+        },
+        "features": {
+            "title": "Nima uchun OsonPolisni tanlashadi",
+            "f1": {
+                "title": "To'liq litsenziya",
+                "desc": "O'zbekiston Moliya vazirligi tomonidan berilgan 1042-sonli litsenziya asosida faoliyat yuritamiz. Har bir polis yagona axborot tizimida avtomatik ro'yxatdan o'tkaziladi."
+            },
+            "f2": {
+                "title": "Strategik hamkorlar",
+                "desc": "Da'volaringizning professional ko'rib chiqilishini va to'liq to'lov imkoniyatini ta'minlash uchun yetakchi sug'urta kompaniyalari bilan hamkorlik qilamiz."
+            },
+            "f3": {
+                "title": "Hech qanday yashirin to'lovlar yo'q",
+                "desc": "Shaffoflik — bizning asosiy qadriyatimiz. Siz ko'rgan narx yakuniy hisoblanadi. To'lov paytida yashirin xizmat to'lovlari yoki kutilmagan komissiyalar yo'q."
+            }
+        },
+        "cta": {
+            "title": "Avtomobilingizni sug'urtalashga tayyormisiz?",
+            "subtitle": "OSAGO polisini 5 daqiqadan kamroq vaqt ichida oling.",
+            "btn": "Narxni hisoblash"
+        }
+    },
+    "Contacts": {
+        "hero": {
+            "title": "Biz bilan bog'laning",
+            "subtitle": "Biz doimo muloqotga ochiqmiz. O'zingizga qulay aloqa usulini tanlang va mutaxassislarimiz imkon qadar tezroq javob berishadi."
+        },
+        "info": {
+            "title": "Kontakt ma'lumotlari",
+            "office": "Bizning ofis",
+            "address1": "Toshkent sh., Mirobod tumani,",
+            "address2": "Afrosiyob ko'chasi, 14",
+            "phone": "Telefon",
+            "email": "Email",
+            "schedule": "Ish vaqti",
+            "hours1": "Du - Ju: 09:00 - 18:00",
+            "hours2": "Sha - Yak: Dam olish kuni"
+        },
+        "social": {
+            "title": "Biz ijtimoiy tarmoqlarda"
+        },
+        "form": {
+            "title": "Bizga yozing",
+            "subtitle": "O'z kontakt ma'lumotlaringizni qoldiring va biz siz bilan bog'lanamiz.",
+            "name": "Ism",
+            "namePlaceholder": "Ivan Ivanov",
+            "phone": "Telefon",
+            "phonePlaceholder": "+998 90 123 45 67",
+            "emailLabel": "Email",
+            "emailPlaceholder": "ivan@example.com",
+            "message": "Xabar",
+            "messagePlaceholder": "Sizga qanday yordam bera olamiz?",
+            "submitBtn": "Xabarni yuborish",
+            "agreement1": "«Xabarni yuborish» tugmasini bosish orqali siz bizning ",
+            "agreement2": "Maxfiylik siyosatimizga",
+            "agreement3": " rozilik bildirasiz."
+        }
+    },
+    "DemoPages": {
+        "partners": "Hamkorlarga",
+        "career": "Karyera",
+        "news": "Yangiliklar",
+        "support": "Qo'llab-quvvatlash",
+        "terms": "Foydalanish shartlari",
+        "privacy": "Maxfiylik siyosati",
+        "legal": "Huquqiy ma'lumotlar"
+    },
+    "DemoTitles": {
+        "career": "OsonPolisda Karyera",
+        "claims": "Sug'urta holatlari",
+        "kasko": "KASKO Sug'urtasi",
+        "legal": "Huquqiy ma'lumotlar",
+        "news": "Yangiliklar va Blog",
+        "partners": "Hamkorlarga",
+        "privacy": "Maxfiylik siyosati",
+        "resetPassword": "Parolni tiklash",
+        "support": "Yordam markazi",
+        "team": "Bizning jamoa",
+        "travel": "Sayohat sug'urtasi",
+        "terms": "Foydalanish shartlari"
+    },
+    "Register": {
+        "header": {
+            "osago": "OSAGO Polislari",
+            "status": "Holatni tekshirish",
+            "help": "Yordam",
+            "login": "Kirish"
+        },
+        "testimonial": {
+            "quote": "«OsonPolis OSAGO polisini olishni men tasavvur qilganimdan ham tezroq qildi. Onlayn ro'yxatdan o'tish mutlaqo muammosiz.»",
+            "name": "Aleksey Volkov",
+            "role": "Tasdiqlangan haydovchi"
+        },
+        "form": {
+            "title": "Akkaunt yarating",
+            "subtitle": "OSAGO ro'yxatdan o'tishni xavfsiz boshlash uchun mobil telefon raqamingizni kiriting.",
+            "phoneLabel": "Telefon raqami",
+            "phonePlaceholder": "+998 (90) 123-45-67",
+            "disclaimer": "Raqamingizni tasdiqlash uchun 6 xonali kod yuboramiz.",
+            "submitBtn": "Kodni yuborish",
+            "or": "Yoki",
+            "alreadyHave": "Akkauntingiz bormi?",
+            "loginLink": "Kirish"
+        },
+        "footer": {
+            "privacy": "Maxfiylik siyosati",
+            "terms": "Foydalanish shartlari",
+            "support": "Qo'llab-quvvatlash",
+            "copyright": "© 2024 OsonPolis. Barcha huquqlar himoyalangan."
+        }
+    },
+    "RegisterVerify": {
+        "header": {
+            "policies": "Polislar",
+            "claims": "Sug'urta holatlari",
+            "support": "Yordam",
+            "login": "Kirish"
+        },
+        "testimonial": {
+            "quote": "«OsonPolis OSAGO polisini olishni men tasavvur qilganimdan ham tezroq qildi. Mutlaqo muammosiz tajriba.»",
+            "name": "Aleksey Volkov",
+            "role": "Professional haydovchi"
+        },
+        "form": {
+            "back": "Ro'yxatdan o'tishga qaytish",
+            "title": "Tasdiqlash kodini kiriting",
+            "subtitle1": "Biz 6 xonali kodni yubordik: ",
+            "verifyBtn": "Tasdiqlash",
+            "didNotReceive": "Kodni olmadingizmi?",
+            "resend": "Kodni qayta yuborish"
+        },
+        "footer": {
+            "privacy": "Maxfiylik siyosati",
+            "terms": "Xizmat ko'rsatish shartlari",
+            "support": "Yordam markazi",
+            "copyright": "© 2023 OsonPolis Inc. Barcha huquqlar himoyalangan."
+        }
+    },
+    "OsagoStep1": {
+        "header": {
+            "cabinet": "Shaxsiy kabinet"
+        },
+        "main": {
+            "title": "Avtomobil ma'lumotlari",
+            "subtitle": "Ma'lumotlarni avtomatik olish uchun davlat raqami va texpasportni kiriting"
+        },
+        "progress": {
+            "auto": "Avto",
+            "personal": "Shaxsiy",
+            "policy": "Polis",
+            "payment": "To'lov"
+        },
+        "form": {
+            "step1Title": "Transport vositasi identifikatsiyasi",
+            "govNumber": "Davlat raqami",
+            "govNumberPlaceholder": "01 A 123 AA",
+            "techPassport": "Texpasport seriyasi va raqami",
+            "techPassportPlaceholder": "AAF 1234567",
+            "errors": {
+                "plate": "Davlat raqamini kiriting",
+                "techPassport": "Texpasport ma'lumotlarini kiriting"
+            }
+        },
+        "buttons": {
+            "back": "Orqaga",
+            "continue": "Davom etish"
+        },
+        "sidebar": {
+            "title": "Dastlabki hisob",
+            "baseTariff": "Asosiy tarif",
+            "pending": "Kutilmoqda...",
+            "duration": "Sug'urta muddati",
+            "year": "1 yil",
+            "total": "Jami:"
+        },
+        "info": {
+            "title": "Bu ma'lumotlar nima uchun kerak?",
+            "text": "Sizning KBM (bonus-malus) va hududingizni inobatga olgan holda polis narxini aniq hisoblash uchun Yagona axborot tizimidan ushbu ma'lumotlarni so'raymiz."
+        },
+        "footer": {
+            "copyright": "© 2024. Barcha huquqlar himoyalangan.",
+            "privacy": "Maxfiylik",
+            "terms": "Oferta",
+            "contacts": "Kontaktlar"
+        }
+    },
+    "OsagoStep2": {
+        "header": {
+            "cabinet": "Shaxsiy kabinet"
+        },
+        "main": {
+            "title": "Avtomobil egasi ma'lumotlari",
+            "subtitle": "Iltimos, avtomobil egasining JSHSHIR (PINFL) va pasport ma'lumotlarini kiriting."
+        },
+        "progress": {
+            "auto": "Avto",
+            "personal": "Shaxsiy",
+            "policy": "Polis",
+            "payment": "To'lov"
+        },
+        "form": {
+            "stepTitle": "Shaxsiy ma'lumotlar",
+            "pinfl": "JSHSHIR (PINFL)",
+            "pinflPlaceholder": "JSHSHIR ni kiriting (14 ta raqam)",
+            "passport": "Pasport seriyasi va raqami",
+            "phone": "Telefon raqami",
+            "errors": {
+                "pinfl": "JSHSHIR 14 ta raqamdan iborat bo'lishi kerak",
+                "passportSeries": "Seriya kiritilishi shart",
+                "passportNumber": "Raqam 7 ta raqamdan iborat bo'lishi kerak",
+                "phone": "Telefon raqamini to'liq kiriting"
+            }
+        },
+        "buttons": {
+            "back": "Orqaga",
+            "continue": "Davom etish"
+        },
+        "sidebar": {
+            "title": "OSAGO",
+            "step": "Qadam 2 / 4",
+            "coverage": "Qoplama puli",
+            "coverageAmount": "40 000 000 UZS",
+            "description": "Polis turlarini tanlaganingizdan so'ng to'liq hisob-kitob chiqadi",
+            "rules": "Sug'urta qoidalari",
+            "info": "Sizning ma'lumotlaringiz himoyalangan va O'zbekiston Respublikasi qonunchiligiga muvofiq faqat sug'urta polisini rasmiylashtirish uchun foydalaniladi."
+        },
+        "footer": {
+            "copyright": "© 2024. Barcha huquqlar himoyalangan.",
+            "privacy": "Maxfiylik",
+            "terms": "Oferta",
+            "contacts": "Kontaktlar"
+        }
+    },
+    "OsagoStep3": {
+        "header": {
+            "cabinet": "Shaxsiy kabinet"
+        },
+        "main": {
+            "title": "Polis sozlamalari",
+            "subtitle": "OSAGO sug'urtasi uchun mos parametrlarni tanlang"
+        },
+        "progress": {
+            "auto": "Avto",
+            "personal": "Shaxsiy",
+            "policy": "Polis",
+            "payment": "To'lov"
+        },
+        "duration": {
+            "title": "Sug'urta davri",
+            "year": {
+                "title": "1 yil",
+                "desc": "Standart yillik polis. Eng hamyonbop variant."
+            },
+            "six_months": {
+                "title": "6 oy",
+                "desc": "Yarim yillik sug'urta polisi."
+            }
+        },
+        "driversCount": {
+            "title": "Haydovchilar soni",
+            "limited": {
+                "title": "5 kishigacha",
+                "desc": "Faqat polisda ko'rsatilgan haydovchilar boshqarish huquqiga ega."
+            },
+            "unlimited": {
+                "title": "Cheklovsiz",
+                "desc": "Haydovchilik guvohnomasiga ega har qanday shaxs boshqarishi mumkin."
+            },
+            "features": {
+                "damage80m": "Sizga yetkazilgan zarar uchun 80 mln so'mgacha",
+                "passportRequired": "Haydovchilarni pasport yoki ID bilan qo'shish shart",
+                "peregonWithDoc": "«Peregon» xizmati faqat ishonchnoma bilan mavjud",
+                "cashback": "Keshbeksiz",
+                "allDrivers": "Avtoning barcha haydovchilari sug'urtalangan",
+                "noPassport": "Haydovchilarni pasport yoki ID bilan qo'shish shart emas",
+                "peregon": "«Peregon» xizmatini buyurtma qilish mumkin"
+            }
+        },
+        "driversInfo": {
+            "title": "Haydovchilar ma'lumotlari",
+            "driver1": "Haydovchi 1 (Avtomobil egasi)",
+            "driver2": "Haydovchi 2",
+            "delete": "O'chirish",
+            "relation": "Avto egasiga qarindoshlik darajasi",
+            "relations": {
+                "none": "Qarindosh emas",
+                "parents": "Ota/Ona",
+                "spouse": "Er/Xotin",
+                "siblings": "Aka/Uka/Opa/Singil",
+                "children": "O'g'il/Qiz"
+            },
+            "passport": "Pasport / ID seriya va raqami",
+            "birthDate": "Tug'ilgan sana",
+            "addDriver": "Yana bitta haydovchi qo'shish",
+            "errors": {
+                "passportSeries": "Seriya kiritilishi shart",
+                "passportNumber": "Raqam xato",
+                "birthDate": "Sanani tanlang"
+            }
+        },
+        "buttons": {
+            "back": "Orqaga",
+            "continue": "Davom etish"
+        },
+        "sidebar": {
+            "helpTitle": "Cheklovsizmi yoki 5 kishigachami?",
+            "helpText": "Agar avtomobilni turli xil insonlar boshqarsa \"Cheklovsiz\" variantini tanlang. Agar haydovchilar doirasi aniq belgilangan bo'lsa \"5 kishigacha\" - birmuncha tejamkor variant hisoblanadi.",
+            "calcTitle": "Sizning hisob-kitobingiz",
+            "auto": "Avtomobil",
+            "region": "Hudud",
+            "regionValue": "Toshkent",
+            "mainDriver": "Asosiy haydovchi",
+            "mainDriverValue": "A. Uzakov",
+            "total": "Jami:"
+        },
+        "footer": {
+            "copyright": "© 2024. Barcha huquqlar himoyalangan.",
+            "privacy": "Maxfiylik",
+            "terms": "Oferta",
+            "contacts": "Kontaktlar"
+        }
+    },
+    "OsagoStep4": {
+        "header": {
+            "cabinet": "Shaxsiy kabinet"
+        },
+        "main": {
+            "title": "Qadam 4: To'lovni tanlash",
+            "subtitle": "Xaridni yakunlash uchun qulay to'lov tizimini tanlang"
+        },
+        "progress": {
+            "auto": "Avto",
+            "personal": "Shaxsiy",
+            "policy": "Polis",
+            "payment": "To'lov"
+        },
+        "paymentMethod": {
+            "title": "To'lov usulini tanlang",
+            "payme": {
+                "title": "Payme",
+                "desc": "Payme ilovasi yoki sayti orqali to'lov"
+            },
+            "click": {
+                "title": "Click",
+                "desc": "Click Up yoki USSD orqali to'lov"
+            },
+            "uzum": {
+                "title": "Uzum Pay",
+                "desc": "Uzum ekotizimi orqali to'lov"
+            },
+            "secureInfo": "Xavfsiz ulanish. To'lov to'lov tizimi tomonida amalga oshiriladi."
+        },
+        "buttons": {
+            "back": "Orqaga",
+            "pay": "{amount} to'lash",
+            "processing": "To'lov amalga oshirilmoqda..."
+        },
+        "sidebar": {
+            "title": "Yakuniy hisob-kitob",
+            "auto": "Avtomobil",
+            "period": "Muddat",
+            "periodValue": "1 yil",
+            "drivers": "Haydovchilar",
+            "driversValue": "Cheklovsiz",
+            "totalLabel": "To'lash uchun:",
+            "secureTitle": "Xavfsiz to'lov",
+            "secureText": "Barcha to'lovlar Payme, Click yoki Uzum Pay tizimlarining xavfsiz shlyuzlari orqali amalga oshiriladi."
+        },
+        "footer": {
+            "copyright": "© 2024. Barcha huquqlar himoyalangan.",
+            "privacy": "Maxfiylik",
+            "terms": "Oferta",
+            "contacts": "Kontaktlar"
+        }
+    },
+    "Success": {
+        "main": {
+            "title": "Tabriklaymiz! Polisingiz muvaffaqiyatli rasmiylashtirildi",
+            "subtitle": "To'lov muvaffaqiyatli amalga oshirildi. Elektron polis pochtangizga yuborildi va yuklab olish uchun ochiq."
+        },
+        "policyDetails": {
+            "title": "Polis tafsilotlari",
+            "subtitle": "Sug'urta haqida ma'lumot",
+            "policyNumber": "Polis raqami",
+            "validUntil": "Amal qilish muddati",
+            "insuranceCompany": "Sug'urta kompaniyasi",
+            "status": "Holati",
+            "statusActive": "Faol",
+            "issueDate": "Rasmiylashtirilgan sana",
+            "policyType": "Polis turi"
+        },
+        "actions": {
+            "download": "PDF polisni yuklab olish",
+            "dashboard": "Shaxsiy kabinetga o'tish"
+        }
+    },
+    "Dashboard": {
+        "sidebar": {
+            "role": "Premium User",
+            "dashboard": "Dashboard",
+            "myPolicies": "Mening polislarim",
+            "history": "Tarix",
+            "profile": "Profil",
+            "logout": "Chiqish"
+        },
+        "header": {
+            "title": "Shaxsiy kabinet"
+        },
+        "main": {
+            "title": "Mening polislarim",
+            "subtitle": "Sizning barcha sug'urta polislaringiz haqidagi to'liq ma'lumotlar jadvali",
+            "buyNew": "Yangi polis sotib olish"
+        },
+        "table": {
+            "headers": {
+                "id": "ID",
+                "product": "Mahsulot",
+                "date": "Sana",
+                "status": "Status",
+                "amount": "Miqdori",
+                "actions": "Amallar"
+            },
+            "status": {
+                "active": "Faol",
+                "expired": "Muddati tugagan"
+            },
+            "validity": "Amal qilish muddati",
+            "expiredLabel": "Muddati o'tgan",
+            "actionsTooltip": {
+                "view": "Ko'rish",
+                "download": "Yuklab olish"
+            }
+        },
+        "pagination": {
+            "showing": "Jami {count} ta yozuv ko'rsatilmoqda"
+        },
+        "notifications": {
+            "title": "Bildirishnomalar",
+            "items": {
+                "expiring": {
+                    "title": "Polis muddati tugashiga 5 kun qoldi",
+                    "desc": "{id} raqamli polisingizni o'z vaqtida yangilashni unutmang",
+                    "time": "Hozirgina"
+                }
+            }
+        }
+    },
+    "Admin": {
+        "header": {
+            "roleAdmin": "Administrator",
+            "roleLabel": "Rol: Admin"
+        },
+        "sidebar": {
+            "menuTitle": "Menyu",
+            "dashboard": "Dashboard",
+            "policies": "Polislarni boshqarish",
+            "drivers": "Haydovchilar bazasi",
+            "payments": "To'lovlar",
+            "reports": "Hisobotlar",
+            "communications": "Aloqa",
+            "systemTitle": "Tizim",
+            "settings": "Sozlamalar",
+            "logout": "Chiqish",
+            "versionTitle": "Tizim versiyasi"
+        },
+        "main": {
+            "title": "Polislarni Boshqarish",
+            "subtitle": "Sug'urta shartnomalarini batafsil ko'rish va boshqarish",
+            "exportBtn": "Excel-ga eksport",
+            "smsBtn": "SMS yuborish"
+        },
+        "filters": {
+            "search": "Qidiruv",
+            "searchPlaceholder": "Davlat raqami yoki shartnoma...",
+            "period": {
+                "label": "Davr",
+                "all": "Barcha vaqt",
+                "today": "Bugun",
+                "last7": "Oxirgi 7 kun",
+                "last30": "Oxirgi 30 kun"
+            },
+            "payment": {
+                "label": "To'lov usuli",
+                "all": "Barchasi",
+                "payme": "Payme",
+                "click": "Click",
+                "uzum": "Uzum"
+            },
+            "status": {
+                "label": "Holat",
+                "all": "Barcha holatlar",
+                "paid": "To'langan",
+                "pending": "Kutilmoqda",
+                "cancelled": "Bekor qilingan"
+            }
+        },
+        "table": {
+            "headers": {
+                "id": "ID",
+                "date": "Sana",
+                "client": "Mijoz",
+                "product": "Mahsulot",
+                "status": "Holat",
+                "amount": "Summa",
+                "payment": "To'lov",
+                "plateNumber": "Davlat raqami",
+                "contractNo": "Shartnoma №",
+                "actions": "Amallar"
+            },
+            "status": {
+                "paid": "To'langan",
+                "pending": "Kutilmoqda"
+            }
+        },
+        "pagination": {
+            "showing": "Jami {total} tadan {count} ko'rsatilmoqda"
+        }
+    },
+    "DashboardDocuments": {
+        "header": {
+            "title": "Hujjatlar"
+        },
+        "main": {
+            "title": "Mening Hujjatlarim",
+            "subtitle": "So'nggi sug'urta va to'lov hujjatlari tarixi"
+        },
+        "content": {
+            "downloadedDocs": "Yuklab olingan hujjatlar",
+            "filter": "Filtr"
+        },
+        "docs": {
+            "policy": {
+                "dateSize": "Sana: 24 Oktabr, 2023 • Hajmi: 2.4 MB"
+            },
+            "receipt": {
+                "title": "To'lov_Kvitansiyasi_4421.pdf",
+                "dateSize": "Sana: 23 Oktabr, 2023 • Hajmi: 1.1 MB"
+            },
+            "contract": {
+                "title": "KASKO_Shartnoma_Loyihasi.pdf",
+                "dateSize": "Sana: 15 Sentyabr, 2023 • Hajmi: 4.8 MB"
+            }
+        }
+    },
+    "DashboardProfile": {
+        "header": {
+            "title": "Mening profilim"
+        },
+        "main": {
+            "title": "Shaxsiy ma'lumotlarni tahrirlash",
+            "subtitle": "Sug'urta polislaringiz uchun kontakt va hujjat ma'lumotlarini yangilang."
+        },
+        "personal": {
+            "title": "Shaxsiy ma'lumotlar",
+            "desc": "Asosiy aloqa detallarini boshqarish.",
+            "fullName": "To'liq ism shart",
+            "phone": "Telefon raqam",
+            "readOnly": "(Faqat o'qish uchun)",
+            "email": "Email Address",
+            "birthDate": "Tug'ilgan sana",
+            "gender": "Jinsi",
+            "genderMale": "Erkak",
+            "genderFemale": "Ayol"
+        },
+        "passport": {
+            "title": "Passport / ID Ma'lumotlari",
+            "desc": "Polisni rasmiylashtirish uchun pasport detalari.",
+            "series": "Seriyasi",
+            "number": "Raqami",
+            "pinfl": "JSHSHIR (PINFL)",
+            "pinflHint": "Pasportingizda ko'rsatilgan 14 talik raqam."
+        },
+        "actions": {
+            "cancel": "Bekor qilish",
+            "save": "Saqlash"
+        }
+    },
+    "AdminAnalytics": {
+        "main": {
+            "title": "Sug'urta kompaniyalari tahlili",
+            "subtitle": "OsonPolis sug'urta hamkorlari samaradorligi va asosiy ko'rsatkichlar monitoringi.",
+            "exportBtn": "Hisobotni eksport qilish"
+        },
+        "cards": {
+            "premium": "Premium hamkor",
+            "active": "Faol",
+            "leader": "O'sish yetakchisi",
+            "sold": "Sotilgan polislar",
+            "conversion": "Konversiya",
+            "payouts": "To'lovlar"
+        },
+        "chart": {
+            "title": "Hamkorlar daromadini solishtirish",
+            "subtitle": "Joriy chorak uchun kompaniyalar daromadliligi",
+            "revenue": "Daromad"
+        },
+        "list": {
+            "title": "Hamkorlarning batafsil ro'yxati",
+            "sortBy": "Saralash:",
+            "sort1": "Eng yaxshi natija",
+            "sort2": "Yuqori darajadagi uzaytirish",
+            "sort3": "Maksimal to'lovlar",
+            "showAll": "Barcha hamkorlarni ko'rsatish (12)"
+        },
+        "table": {
+            "partner": "Hamkor",
+            "type": "Sug'urta turi",
+            "retention": "Ushlab qolish (Renewal)",
+            "complaints": "Shikoyatlar reytingi",
+            "status": "Holat",
+            "action": "Amal",
+            "normal": "Meyorida",
+            "attention": "Diqqat",
+            "details": "Batafsil"
+        }
+    },
+    "AdminSMS": {
+        "main": {
+            "title": "SMS xabarnomalar markazi",
+            "subtitle": "Avtomatik eslatmalar va qo'lda yuboriladigan xabarlarni boshqarish.",
+            "exportBtn": "Loglarni eksport qilish"
+        },
+        "tabs": {
+            "create": "Xabar yaratish",
+            "history": "Xabarlar tarixi",
+            "templates": "Shablonlar",
+            "automation": "Avtomatlashtirish",
+            "pro": "Pro"
+        },
+        "editor": {
+            "title": "Yangi xabar",
+            "templateLabel": "Xabar shabloni",
+            "template1": "Uzaytirish eslatmasi",
+            "template2": "Tabrik xabari",
+            "template3": "To'lov haqida xabarnoma",
+            "template4": "Maxsus taklif",
+            "recipientLabel": "Qabul qiluvchilar guruhi",
+            "recipient1": "7 kundan keyin tugaydi (42 ta)",
+            "recipient2": "Barcha faol haydovchilar",
+            "recipient3": "Yangi ro'yxatdan o'tganlar (bugun)",
+            "recipient4": "Qo'lda tanlash...",
+            "textLabel": "Xabar matni",
+            "textPlaceholder": "Xabar matnini kiriting...",
+            "variables": "Mavjud o'zgaruvchilar: ",
+            "coverage": "Qamrov",
+            "smsCount": "SMS soni",
+            "totalCost": "Jami narx",
+            "btnSchedule": "Rejalashtirish",
+            "btnSend": "Hozir yuborish"
+        },
+        "history": {
+            "title": "So'nggi yuborilganlar",
+            "viewAll": "Barcha xabarlar",
+            "recipient": "Qabul qiluvchi",
+            "date": "Sana va vaqt",
+            "status": "Holat",
+            "type": "Tur",
+            "delivered": "Yetkazildi",
+            "error": "Xatolik",
+            "reminder": "Eslatma",
+            "broadcast": "Tarqatish",
+            "system": "Tizim"
+        },
+        "footer": {
+            "title": "Avtomatlashtirishni sozlashda yordam kerakmi?",
+            "desc": "Mutaxassislarimiz mijozlarni ushlab qolish va konversiyani oshirish uchun murakkab xabar ssenariylarini sozlashda yordam berishadi.",
+            "btn": "Texnik yordam bilan bog'lanish"
+        }
+    }
+}

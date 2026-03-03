@@ -1,0 +1,264 @@
+"use client";
+
+import { useState, Suspense } from "react";
+import { Link } from "@/i18n/routing";
+import Image from "next/image";
+import { Header } from "@/components/Header";
+import { useTranslations } from "next-intl";
+import { useSearchParams, useRouter } from "next/navigation";
+
+function OsagoStep2Content() {
+    const t = useTranslations("OsagoStep2");
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const plate = searchParams?.get("plate") || "";
+
+    // Handle separated or legacy tech passport params
+    const techPassportSeries = searchParams?.get("techPassportSeries") || "";
+    const techPassportNumber = searchParams?.get("techPassportNumber") || "";
+    const techPassport = searchParams?.get("techPassport") || ""; // fallback
+
+    const drivers = searchParams?.get("drivers") || "";
+
+    // Step 2 specific state
+    const [pinfl, setPinfl] = useState("");
+    const [passportSeries, setPassportSeries] = useState("");
+    const [passportNumber, setPassportNumber] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("+998 ");
+    const [errors, setErrors] = useState<{ pinfl?: string; passportSeries?: string; passportNumber?: string; phone?: string }>({});
+
+    const validateAndProceed = () => {
+        const newErrors: typeof errors = {};
+        if (pinfl.length !== 14) newErrors.pinfl = t("form.errors.pinfl");
+        if (passportSeries.length !== 2) newErrors.passportSeries = t("form.errors.passportSeries");
+        if (passportNumber.length !== 7) newErrors.passportNumber = t("form.errors.passportNumber");
+        if (phoneNumber.length < 13) newErrors.phone = t("form.errors.phone");
+
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length === 0) {
+            router.push(`/osago/step-3?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passportSeries}${passportNumber}&phone=${encodeURIComponent(phoneNumber)}&drivers=${drivers}`);
+        }
+    };
+
+    return (
+        <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col transition-colors duration-200">
+            <Header />
+
+            <main className="flex-grow flex flex-col items-center w-full px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+                <div className="w-full max-w-7xl">
+                    <div className="mb-10">
+                        <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">{t("main.title")}</h1>
+                        <p className="mt-3 text-lg text-slate-600 dark:text-slate-400">{t("main.subtitle")}</p>
+                    </div>
+
+                    <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+                        <div className="lg:col-span-7 xl:col-span-8 flex flex-col gap-8">
+
+                            {/* Progress indicators */}
+                            <div className="w-full">
+                                <nav className="grid grid-cols-4 gap-4 w-full">
+                                    <div className="flex flex-col gap-2">
+                                        <span className="text-[10px] md:text-xs font-medium text-primary uppercase tracking-wider">{t("progress.auto")}</span>
+                                        <div className="h-1.5 w-full bg-primary rounded-full"></div>
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <span className="text-[10px] md:text-xs font-medium text-primary uppercase tracking-wider">{t("progress.personal")}</span>
+                                        <div className="h-1.5 w-full bg-primary rounded-full"></div>
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <span className="text-[10px] md:text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider">{t("progress.policy")}</span>
+                                        <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full"></div>
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <span className="text-[10px] md:text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider">{t("progress.payment")}</span>
+                                        <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full"></div>
+                                    </div>
+                                </nav>
+                            </div>
+
+                            <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 md:p-8">
+                                <form className="space-y-6">
+                                    <div className="flex items-center gap-3 mb-6">
+                                        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm">2</span>
+                                        <h2 className="text-xl font-bold text-slate-900 dark:text-white">{t("form.stepTitle")}</h2>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">{t("form.pinfl")}</label>
+                                        <div className="relative">
+                                            <input
+                                                value={pinfl}
+                                                onChange={(e) => { setPinfl(e.target.value.replace(/\D/g, '').slice(0, 14)); setErrors(prev => ({ ...prev, pinfl: undefined })); }}
+                                                className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-4 pr-10 transition-all text-slate-900 dark:text-white h-14 font-medium placeholder:text-slate-400 focus:ring-0 ${errors.pinfl ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
+                                                maxLength={14}
+                                                placeholder={t("form.pinflPlaceholder")}
+                                                type="text"
+                                            />
+                                            {pinfl && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => { setPinfl(""); setErrors(prev => ({ ...prev, pinfl: undefined })); }}
+                                                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                                                >
+                                                    <span className="material-symbols-outlined text-xl">close</span>
+                                                </button>
+                                            )}
+                                        </div>
+                                        {errors.pinfl && <span className="text-red-500 text-xs font-medium mt-1 inline-block">{errors.pinfl}</span>}
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">{t("form.passport")}</label>
+                                            <div className="flex gap-2">
+                                                <div className="flex flex-col">
+                                                    <input
+                                                        value={passportSeries}
+                                                        onChange={(e) => { setPassportSeries(e.target.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 2)); setErrors(prev => ({ ...prev, passportSeries: undefined })); }}
+                                                        className={`w-20 bg-slate-50 dark:bg-slate-800 border-2 rounded-xl h-14 text-center font-bold uppercase transition-all text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-0 ${errors.passportSeries ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
+                                                        maxLength={2}
+                                                        placeholder="AA"
+                                                        type="text"
+                                                    />
+                                                </div>
+                                                <div className="flex-1 flex flex-col relative">
+                                                    <input
+                                                        value={passportNumber}
+                                                        onChange={(e) => { setPassportNumber(e.target.value.replace(/\D/g, '').slice(0, 7)); setErrors(prev => ({ ...prev, passportNumber: undefined })); }}
+                                                        className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-4 pr-10 transition-all text-slate-900 dark:text-white h-14 font-medium placeholder:text-slate-400 focus:ring-0 ${errors.passportNumber ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
+                                                        maxLength={7}
+                                                        placeholder="0000000"
+                                                        type="text"
+                                                    />
+                                                    {passportNumber && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => { setPassportNumber(""); setErrors(prev => ({ ...prev, passportNumber: undefined })); }}
+                                                            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                                                        >
+                                                            <span className="material-symbols-outlined text-xl">close</span>
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            {(errors.passportSeries || errors.passportNumber) && (
+                                                <span className="text-red-500 text-xs font-medium mt-1 inline-block">
+                                                    {errors.passportSeries || errors.passportNumber}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">{t("form.phone")}</label>
+                                            <div className="relative">
+                                                <input
+                                                    value={phoneNumber}
+                                                    onChange={(e) => {
+                                                        const val = e.target.value;
+                                                        if (val.startsWith('+998 ')) {
+                                                            setPhoneNumber(val);
+                                                        } else if (val === '+998') {
+                                                            setPhoneNumber('+998 ');
+                                                        }
+                                                        setErrors(prev => ({ ...prev, phone: undefined }));
+                                                    }}
+                                                    className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-4 pl-12 pr-10 transition-all text-slate-900 dark:text-white h-14 font-medium placeholder:text-slate-400 focus:ring-0 ${errors.phone ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
+                                                    type="tel"
+                                                    placeholder="+998 90 123 45 67"
+                                                />
+                                                <span className={`material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[20px] pointer-events-none transition-colors ${errors.phone ? 'text-red-400' : 'text-slate-400'}`}>phone</span>
+                                                {phoneNumber.length > 5 && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => { setPhoneNumber("+998 "); setErrors(prev => ({ ...prev, phone: undefined })); }}
+                                                        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                                                    >
+                                                        <span className="material-symbols-outlined text-xl">close</span>
+                                                    </button>
+                                                )}
+                                            </div>
+                                            {errors.phone && <span className="text-red-500 text-xs font-medium mt-1 inline-block">{errors.phone}</span>}
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-4">
+                                <Link href={`/osago/step-1?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&drivers=${drivers}`} className="w-full md:w-auto px-10 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors order-2 md:order-1">
+                                    <span className="material-symbols-outlined text-[20px] mr-1">arrow_back</span>
+                                    {t("buttons.back")}
+                                </Link>
+                                <button
+                                    onClick={validateAndProceed}
+                                    className="w-full md:w-auto px-12 py-4 bg-primary hover:bg-blue-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-200 dark:shadow-none order-1 md:order-2"
+                                >
+                                    {t("buttons.continue")}
+                                    <span className="material-symbols-outlined text-[20px] ml-1">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-6 sticky top-28">
+                            <div className="bg-blue-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-blue-100 dark:border-slate-700">
+                                <div className="flex items-start gap-4">
+                                    <div className="bg-white dark:bg-slate-700 p-2.5 rounded-xl shadow-sm text-primary flex-shrink-0 mt-1">
+                                        <span className="material-symbols-outlined">info</span>
+                                    </div>
+                                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                                        {t("sidebar.info")}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+                                <h3 className="text-xl font-bold mb-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-4 text-slate-900 dark:text-white">
+                                    {t("sidebar.title")}
+                                    <span className="text-slate-400 font-normal text-sm">{t("sidebar.step")}</span>
+                                </h3>
+                                <div className="space-y-4 mb-8">
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-slate-500 dark:text-slate-400">{t("sidebar.coverage")}</span>
+                                        <span className="font-medium text-right font-bold text-slate-900 dark:text-white">{t("sidebar.coverageAmount")}</span>
+                                    </div>
+                                    <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-dashed border-slate-200 dark:border-slate-700">
+                                        <p className="text-[11px] text-slate-500 dark:text-slate-400 text-center uppercase tracking-wider font-semibold">
+                                            {t("sidebar.description")}
+                                        </p>
+                                    </div>
+                                </div>
+                                <button className="w-full py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-colors flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-700">
+                                    <span className="material-symbols-outlined text-lg">description</span>
+                                    {t("sidebar.rules")}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer className="mt-auto py-8 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="flex items-center gap-3">
+                        <Link href="/" className="flex items-center gap-2">
+                            <Image src="/logo-blue.png" alt="OsonPolis" width={120} height={26} className="dark:hidden block h-6 w-auto" />
+                            <Image src="/logo-white.png" alt="OsonPolis" width={120} height={26} className="hidden dark:block h-6 w-auto" />
+                        </Link>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 ml-4">{t("footer.copyright")}</p>
+                    </div>
+                    <div className="flex gap-6">
+                        <Link className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-primary transition-colors uppercase tracking-wider" href="/privacy">{t("footer.privacy")}</Link>
+                        <Link className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-primary transition-colors uppercase tracking-wider" href="/terms">{t("footer.terms")}</Link>
+                        <Link className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-primary transition-colors uppercase tracking-wider" href="/contacts">{t("footer.contacts")}</Link>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    );
+}
+
+export default function OsagoStep2Page() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-primary border-t-transparent animate-spin"></div></div>}>
+            <OsagoStep2Content />
+        </Suspense>
+    );
+}

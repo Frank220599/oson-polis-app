@@ -1,0 +1,820 @@
+{
+    "Header": {
+        "nav": {
+            "osago": "OSAGO",
+            "kasko": "CASCO",
+            "travel": "Travel Insurance",
+            "about": "About Us",
+            "contacts": "Contacts"
+        },
+        "login": "Login",
+        "register": "Register"
+    },
+    "DemoPagePlaceholder": {
+        "description": "This page is currently under development. We are actively working on it to provide you with the best service. Please check back later!",
+        "backToHome": "Back to Home"
+    },
+    "Footer": {
+        "slogan": "Simplifying insurance for every driver in Uzbekistan.",
+        "company": {
+            "title": "Company",
+            "about": "About Us",
+            "team": "Our Team",
+            "career": "Career",
+            "news": "News"
+        },
+        "services": {
+            "title": "Services",
+            "osagoOnline": "OSAGO Online",
+            "kaskoProtection": "KASKO Protection",
+            "claims": "Insurance Claims",
+            "partners": "Partners"
+        },
+        "support": {
+            "title": "Support",
+            "help": "Help",
+            "contacts": "Contacts",
+            "legalInfo": "Legal Information"
+        },
+        "copyright": "© 2024 OsonPolis. Licensed and regulated. All rights reserved."
+    },
+    "Home": {
+        "partnerBadge": "Official Insurance Partner",
+        "heroTitle1": "Online OSAGO in",
+        "heroTitleHighlight": "5 minutes",
+        "heroSubtitle": "Fast, safe, and reliable car insurance without visiting an office. We work directly with major insurance companies.",
+        "calcBtn": "Calculate Price",
+        "howItWorksBtn": "How It Works",
+        "calcForm": {
+            "title": "Calculate Policy Now",
+            "subtitle": "Get the best rates from leading insurers instantly",
+            "plateLabel": "License Plate",
+            "platePlaceholder": "01 A 123 AA",
+            "licenseLabel": "Driver's License",
+            "licensePlaceholder": "AA 1234567",
+            "driversLabel": "Number of Drivers",
+            "driversPlaceholder": "Select number",
+            "driversLimited": "Up to 5 people",
+            "driversUnlimited": "Unlimited",
+            "submitBtn": "Issue Policy",
+            "errors": {
+                "plate": "Please enter a license plate number",
+                "license": "Please enter your driver's license number",
+                "drivers": "Please select the number of drivers"
+            }
+        },
+        "offers": {
+            "title": "Available Offers",
+            "priceLabel": "Policy Price",
+            "currency": "UZS",
+            "selectBtn": "Select"
+        },
+        "products": {
+            "title": "Our Products",
+            "subtitle": "Choose the right insurance type for your safety and peace of mind.",
+            "osago": {
+                "title": "OSAGO",
+                "desc": "Compulsory third-party liability insurance. Protects your budget in an accident."
+            },
+            "kasko": {
+                "title": "CASCO",
+                "desc": "Voluntary insurance for your car against theft, damage, and other risks."
+            },
+            "travel": {
+                "title": "Travel Insurance",
+                "desc": "Medical insurance for traveling abroad. Your protection anywhere in the world."
+            },
+            "moreBtn": "Learn More"
+        },
+        "steps": {
+            "title": "How It Works",
+            "subtitle": "Get an insurance policy in three simple steps. Fully online, no queues or paperwork.",
+            "step1": {
+                "title": "Enter Details",
+                "desc": "Fill in the car and driver information in our secure form."
+            },
+            "step2": {
+                "title": "Get Offers",
+                "desc": "Compare prices from leading insurance companies instantly."
+            },
+            "step3": {
+                "title": "Get Policy",
+                "desc": "Receive the official electronic policy via email and SMS in minutes."
+            }
+        },
+        "trustBadge": "Trusted by leading insurance companies",
+        "footer": {
+            "copyrightText": "OsonPolis Insurance. All rights reserved.",
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Use"
+        }
+    },
+    "About": {
+        "hero": {
+            "title": "Insurance with a human face",
+            "subtitle": "At OsonPolis we believe in transparency, speed, and reliability. We are modernizing the OSAGO experience in Uzbekistan through technology and trust.",
+            "btn": "Learn our story"
+        },
+        "mission": {
+            "label": "Our Mission",
+            "title": "Reimagining protection for the modern driver",
+            "desc": "Founded in Tashkent, OsonPolis emerged from a simple observation: getting car insurance shouldn't be a chore. We built a platform that removes bureaucracy, providing instant OSAGO issuance with 100% legal compliance.",
+            "stats": {
+                "policies": "500k+",
+                "policiesLabel": "Policies Issued",
+                "uptime": "99.9%",
+                "uptimeLabel": "System Uptime"
+            }
+        },
+        "team": {
+            "label": "Leadership",
+            "title": "Meet our team",
+            "subtitle": "Experts striving to make insurance accessible and reliable for every citizen.",
+            "members": {
+                "ceo": {
+                    "name": "Anvar Kasimov",
+                    "role": "CEO & Founder"
+                },
+                "coo": {
+                    "name": "Elena Volkova",
+                    "role": "COO"
+                },
+                "cto": {
+                    "name": "Rustam Aliev",
+                    "role": "CTO"
+                },
+                "cs": {
+                    "name": "Dilnoza Karimova",
+                    "role": "Customer Service"
+                }
+            }
+        },
+        "features": {
+            "title": "Why choose OsonPolis",
+            "f1": {
+                "title": "Fully Licensed",
+                "desc": "We operate under License No. 1042 issued by the Ministry of Finance of Uzbekistan. Every policy is automatically registered in the Unified Information System."
+            },
+            "f2": {
+                "title": "Strategic Partners",
+                "desc": "We partner with leading insurance companies in Uzbekistan to guarantee professional handling of your claims and full solvency."
+            },
+            "f3": {
+                "title": "No Hidden Fees",
+                "desc": "Transparency is our core value. The price you see is the final price. No hidden service charges or unexpected fees at checkout."
+            }
+        },
+        "cta": {
+            "title": "Ready to insure your car?",
+            "subtitle": "Get an OSAGO policy in less than 5 minutes.",
+            "btn": "Calculate Price"
+        }
+    },
+    "Contacts": {
+        "hero": {
+            "title": "Contact Us",
+            "subtitle": "We are always open to dialogue. Choose a convenient way to contact us, and our specialists will respond as soon as possible."
+        },
+        "info": {
+            "title": "Contact Information",
+            "office": "Our Office",
+            "address1": "Tashkent, Mirabad district,",
+            "address2": "Afrosiyob St., 14",
+            "phone": "Phone",
+            "email": "Email",
+            "schedule": "Working Hours",
+            "hours1": "Mon - Fri: 09:00 - 18:00",
+            "hours2": "Sat - Sun: Weekend"
+        },
+        "social": {
+            "title": "Social Media"
+        },
+        "form": {
+            "title": "Write to Us",
+            "subtitle": "Leave your contact details and we will contact you.",
+            "name": "Name",
+            "namePlaceholder": "John Doe",
+            "phone": "Phone",
+            "phonePlaceholder": "+998 90 123 45 67",
+            "emailLabel": "Email",
+            "emailPlaceholder": "john@example.com",
+            "message": "Message",
+            "messagePlaceholder": "How can we help you?",
+            "submitBtn": "Send Message",
+            "agreement1": "By clicking «Send Message», you agree to our ",
+            "agreement2": "Privacy Policy",
+            "agreement3": "."
+        }
+    },
+    "DemoPages": {
+        "partners": "For Partners",
+        "career": "Career",
+        "news": "News",
+        "support": "Support",
+        "terms": "Terms of Use",
+        "privacy": "Privacy Policy",
+        "legal": "Legal Information"
+    },
+    "DemoTitles": {
+        "career": "Careers at OsonPolis",
+        "claims": "Insurance Claims",
+        "kasko": "KASKO Insurance",
+        "legal": "Legal Information",
+        "news": "News and Blog",
+        "partners": "For Partners",
+        "privacy": "Privacy Policy",
+        "resetPassword": "Password Recovery",
+        "support": "Support Center",
+        "team": "Our Team",
+        "travel": "Travel Insurance",
+        "terms": "Terms of Use"
+    },
+    "Register": {
+        "header": {
+            "osago": "OSAGO Policies",
+            "status": "Check Status",
+            "help": "Help",
+            "login": "Log In"
+        },
+        "testimonial": {
+            "quote": "\"OsonPolis made getting my OSAGO policy faster than I ever imagined. The online registration is totally seamless.\"",
+            "name": "Alexei Volkov",
+            "role": "Verified Driver"
+        },
+        "form": {
+            "title": "Create Your Account",
+            "subtitle": "Enter your mobile number to start your OSAGO registration securely.",
+            "phoneLabel": "Phone Number",
+            "phonePlaceholder": "+998 (90) 123-45-67",
+            "disclaimer": "We'll send a 6-digit code to verify your number.",
+            "submitBtn": "Send OTP",
+            "or": "Or",
+            "alreadyHave": "Already have an account?",
+            "loginLink": "Log in"
+        },
+        "footer": {
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Use",
+            "support": "Support",
+            "copyright": "© 2024 OsonPolis. All rights reserved."
+        }
+    },
+    "RegisterVerify": {
+        "header": {
+            "policies": "Policies",
+            "claims": "Claims",
+            "support": "Support",
+            "login": "Log In"
+        },
+        "testimonial": {
+            "quote": "\"OsonPolis made getting my OSAGO policy faster than I ever imagined. Totally seamless experience.\"",
+            "name": "Alexei Volkov",
+            "role": "Professional Driver"
+        },
+        "form": {
+            "back": "Back to registration",
+            "title": "Enter Verification Code",
+            "subtitle1": "We sent a 6-digit code to ",
+            "verifyBtn": "Verify",
+            "didNotReceive": "Didn't receive the code?",
+            "resend": "Resend code"
+        },
+        "footer": {
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Service",
+            "support": "Help Center",
+            "copyright": "© 2023 OsonPolis Inc. All rights reserved."
+        }
+    },
+    "OsagoStep1": {
+        "header": {
+            "cabinet": "Personal Cabinet"
+        },
+        "main": {
+            "title": "Vehicle Information",
+            "subtitle": "Enter the license plate and technical passport for automatic data retrieval"
+        },
+        "progress": {
+            "auto": "Auto",
+            "personal": "Personal",
+            "policy": "Policy",
+            "payment": "Payment"
+        },
+        "form": {
+            "step1Title": "Vehicle Identification",
+            "govNumber": "License Plate",
+            "govNumberPlaceholder": "01 A 123 AA",
+            "techPassport": "Tech Passport Series and Number",
+            "techPassportPlaceholder": "AAF 1234567",
+            "errors": {
+                "plate": "Please enter license plate",
+                "techPassport": "Please enter tech passport details"
+            }
+        },
+        "buttons": {
+            "back": "Back",
+            "continue": "Continue"
+        },
+        "sidebar": {
+            "title": "Preliminary Calculation",
+            "baseTariff": "Base Tariff",
+            "pending": "Pending...",
+            "duration": "Insurance Term",
+            "year": "1 year",
+            "total": "Total:"
+        },
+        "info": {
+            "title": "Why do we need this data?",
+            "text": "We request this data from the Unified Information System to accurately calculate the policy cost, taking into account your KBM (bonus-malus) and region."
+        },
+        "footer": {
+            "copyright": "© 2024. All rights reserved.",
+            "privacy": "Privacy",
+            "terms": "Terms",
+            "contacts": "Contacts"
+        }
+    },
+    "OsagoStep2": {
+        "header": {
+            "cabinet": "Personal Cabinet"
+        },
+        "main": {
+            "title": "Vehicle Owner Information",
+            "subtitle": "Please enter the vehicle owner's PINFL and passport details."
+        },
+        "progress": {
+            "auto": "Auto",
+            "personal": "Personal",
+            "policy": "Policy",
+            "payment": "Payment"
+        },
+        "form": {
+            "stepTitle": "Personal Information",
+            "pinfl": "PINFL",
+            "pinflPlaceholder": "Enter PINFL (14 digits)",
+            "passport": "Passport Series and Number",
+            "phone": "Phone Number",
+            "errors": {
+                "pinfl": "PINFL must be 14 digits",
+                "passportSeries": "Enter series",
+                "passportNumber": "Number must be 7 digits",
+                "phone": "Enter complete phone number"
+            }
+        },
+        "buttons": {
+            "back": "Back",
+            "continue": "Continue"
+        },
+        "sidebar": {
+            "title": "OSAGO",
+            "step": "Step 2 / 4",
+            "coverage": "Coverage Amount",
+            "coverageAmount": "40 000 000 UZS",
+            "description": "Full calculation will be available after selecting policy options",
+            "rules": "Insurance Rules",
+            "info": "Your data is securely protected and used only to issue an insurance policy in accordance with the legislation of the Republic of Uzbekistan."
+        },
+        "footer": {
+            "copyright": "© 2024. All rights reserved.",
+            "privacy": "Privacy",
+            "terms": "Terms",
+            "contacts": "Contacts"
+        }
+    },
+    "OsagoStep3": {
+        "header": {
+            "cabinet": "Personal Cabinet"
+        },
+        "main": {
+            "title": "Policy Settings",
+            "subtitle": "Choose suitable parameters for your OSAGO insurance"
+        },
+        "progress": {
+            "auto": "Auto",
+            "personal": "Personal",
+            "policy": "Policy",
+            "payment": "Payment"
+        },
+        "duration": {
+            "title": "Insurance Period",
+            "year": {
+                "title": "1 year",
+                "desc": "Standard annual policy. The most cost-effective option."
+            },
+            "six_months": {
+                "title": "6 months",
+                "desc": "Half-year insurance policy."
+            }
+        },
+        "driversCount": {
+            "title": "Number of Drivers",
+            "limited": {
+                "title": "Up to 5 people",
+                "desc": "Only drivers listed in the policy are allowed to drive."
+            },
+            "unlimited": {
+                "title": "Unlimited",
+                "desc": "Any person with a valid driver's license can drive the vehicle."
+            },
+            "features": {
+                "damage80m": "Coverage for damages up to 80 million UZS",
+                "passportRequired": "Drivers must be added with passport or ID",
+                "peregonWithDoc": "\u00abPeregon\u00bb service requires power of attorney",
+                "cashback": "No cashback",
+                "allDrivers": "All vehicle drivers are insured",
+                "noPassport": "Add drivers without passport or ID",
+                "peregon": "\u00abPeregon\u00bb service can be ordered"
+            }
+        },
+        "driversInfo": {
+            "title": "Driver Details",
+            "driver1": "Driver 1 (Vehicle Owner)",
+            "driver2": "Driver 2",
+            "delete": "Delete",
+            "relation": "Relationship to Vehicle Owner",
+            "relations": {
+                "none": "Not related",
+                "parents": "Father/Mother",
+                "spouse": "Spouse",
+                "siblings": "Brother/Sister",
+                "children": "Son/Daughter"
+            },
+            "passport": "Passport / ID Series and Number",
+            "birthDate": "Date of Birth",
+            "addDriver": "Add another driver",
+            "errors": {
+                "passportSeries": "Enter series",
+                "passportNumber": "Invalid number",
+                "birthDate": "Select date"
+            }
+        },
+        "buttons": {
+            "back": "Back",
+            "continue": "Continue"
+        },
+        "sidebar": {
+            "helpTitle": "Unlimited or up to 5 people?",
+            "helpText": "If the vehicle will be driven by various people, choose \"Unlimited\". If the circle of drivers is clearly defined, \"Up to 5 people\" is a more economical option.",
+            "calcTitle": "Your Calculation",
+            "auto": "Vehicle",
+            "region": "Region",
+            "regionValue": "Tashkent",
+            "mainDriver": "Main Driver",
+            "mainDriverValue": "A. Uzakov",
+            "total": "Total:"
+        },
+        "footer": {
+            "copyright": "© 2024. All rights reserved.",
+            "privacy": "Privacy",
+            "terms": "Terms",
+            "contacts": "Contacts"
+        }
+    },
+    "OsagoStep4": {
+        "header": {
+            "cabinet": "Personal Cabinet"
+        },
+        "main": {
+            "title": "Step 4: Payment Selection",
+            "subtitle": "Choose a convenient payment system to complete your purchase"
+        },
+        "progress": {
+            "auto": "Auto",
+            "personal": "Personal",
+            "policy": "Policy",
+            "payment": "Payment"
+        },
+        "paymentMethod": {
+            "title": "Select Payment Method",
+            "payme": {
+                "title": "Payme",
+                "desc": "Payment via Payme app or website"
+            },
+            "click": {
+                "title": "Click",
+                "desc": "Payment via Click Up or USSD"
+            },
+            "uzum": {
+                "title": "Uzum Pay",
+                "desc": "Payment via Uzum ecosystem"
+            },
+            "secureInfo": "Secure connection. Payment is processed on the payment system's side."
+        },
+        "buttons": {
+            "back": "Back",
+            "pay": "Pay {amount}",
+            "processing": "Processing payment..."
+        },
+        "sidebar": {
+            "title": "Final Calculation",
+            "auto": "Vehicle",
+            "period": "Period",
+            "periodValue": "1 year",
+            "drivers": "Drivers",
+            "driversValue": "Unlimited",
+            "totalLabel": "Total to pay:",
+            "secureTitle": "Secure Payment",
+            "secureText": "All payments are processed through secure gateways of Payme, Click, or Uzum Pay systems."
+        },
+        "footer": {
+            "copyright": "© 2024. All rights reserved.",
+            "privacy": "Privacy",
+            "terms": "Terms",
+            "contacts": "Contacts"
+        }
+    },
+    "Success": {
+        "main": {
+            "title": "Congratulations! Your policy has been successfully issued",
+            "subtitle": "Payment was successful. The electronic policy has been sent to your email and is available for download."
+        },
+        "policyDetails": {
+            "title": "Policy Details",
+            "subtitle": "Insurance information",
+            "policyNumber": "Policy Number",
+            "validUntil": "Valid Until",
+            "insuranceCompany": "Insurance Company",
+            "status": "Status",
+            "statusActive": "Active",
+            "issueDate": "Issue Date",
+            "policyType": "Policy Type"
+        },
+        "actions": {
+            "download": "Download PDF Policy",
+            "dashboard": "Go to Personal Cabinet"
+        }
+    },
+    "Dashboard": {
+        "sidebar": {
+            "role": "Premium User",
+            "dashboard": "Dashboard",
+            "myPolicies": "My Policies",
+            "history": "History",
+            "profile": "Profile",
+            "logout": "Logout"
+        },
+        "header": {
+            "title": "Personal Cabinet"
+        },
+        "main": {
+            "title": "My Policies",
+            "subtitle": "Complete data table about all your insurance policies",
+            "buyNew": "Buy new policy"
+        },
+        "table": {
+            "headers": {
+                "id": "ID",
+                "product": "Product",
+                "date": "Date",
+                "status": "Status",
+                "amount": "Amount",
+                "actions": "Actions"
+            },
+            "status": {
+                "active": "Active",
+                "expired": "Expired"
+            },
+            "validity": "Validity period",
+            "expiredLabel": "Overdue",
+            "actionsTooltip": {
+                "view": "View",
+                "download": "Download"
+            }
+        },
+        "pagination": {
+            "showing": "Showing {count} records"
+        },
+        "notifications": {
+            "title": "Notifications",
+            "items": {
+                "expiring": {
+                    "title": "5 days left until policy expiration",
+                    "desc": "Don't forget to renew your policy {id} on time",
+                    "time": "Just now"
+                }
+            }
+        }
+    },
+    "Admin": {
+        "header": {
+            "roleAdmin": "Administrator",
+            "roleLabel": "Role: Admin"
+        },
+        "sidebar": {
+            "menuTitle": "Menu",
+            "dashboard": "Dashboard",
+            "policies": "Policy Management",
+            "drivers": "Drivers Database",
+            "payments": "Payments",
+            "reports": "Reports",
+            "communications": "Communications",
+            "systemTitle": "System",
+            "settings": "Settings",
+            "logout": "Logout",
+            "versionTitle": "System Version"
+        },
+        "main": {
+            "title": "Policy Management",
+            "subtitle": "Detailed view and management of insurance contracts",
+            "exportBtn": "Export to Excel",
+            "smsBtn": "Send SMS"
+        },
+        "filters": {
+            "search": "Search",
+            "searchPlaceholder": "License plate or contract...",
+            "period": {
+                "label": "Period",
+                "all": "All time",
+                "today": "Today",
+                "last7": "Last 7 days",
+                "last30": "Last 30 days"
+            },
+            "payment": {
+                "label": "Payment method",
+                "all": "All methods",
+                "payme": "Payme",
+                "click": "Click",
+                "uzum": "Uzum"
+            },
+            "status": {
+                "label": "Status",
+                "all": "All statuses",
+                "paid": "Paid",
+                "pending": "Pending",
+                "cancelled": "Cancelled"
+            }
+        },
+        "table": {
+            "headers": {
+                "id": "ID",
+                "date": "Date",
+                "client": "Client",
+                "product": "Product",
+                "status": "Status",
+                "amount": "Amount",
+                "payment": "Payment",
+                "plateNumber": "Plate Number",
+                "contractNo": "Contract No",
+                "actions": "Actions"
+            },
+            "status": {
+                "paid": "Paid",
+                "pending": "Pending"
+            }
+        },
+        "pagination": {
+            "showing": "Showing {count} of {total} records"
+        }
+    },
+    "DashboardDocuments": {
+        "header": {
+            "title": "Documents"
+        },
+        "main": {
+            "title": "My Documents",
+            "subtitle": "History of recent insurance and payment documents"
+        },
+        "content": {
+            "downloadedDocs": "Downloaded documents",
+            "filter": "Filter"
+        },
+        "docs": {
+            "policy": {
+                "dateSize": "Date: 24 October, 2023 • Size: 2.4 MB"
+            },
+            "receipt": {
+                "title": "Payment_Receipt_4421.pdf",
+                "dateSize": "Date: 23 October, 2023 • Size: 1.1 MB"
+            },
+            "contract": {
+                "title": "CASCO_Contract_Draft.pdf",
+                "dateSize": "Date: 15 September, 2023 • Size: 4.8 MB"
+            }
+        }
+    },
+    "DashboardProfile": {
+        "header": {
+            "title": "My Profile"
+        },
+        "main": {
+            "title": "Edit Personal Information",
+            "subtitle": "Update contact and document information for your insurance policies."
+        },
+        "personal": {
+            "title": "Personal Data",
+            "desc": "Manage basic contact details.",
+            "fullName": "Full Name (Required)",
+            "phone": "Phone Number",
+            "readOnly": "(Read-only)",
+            "email": "Email Address",
+            "birthDate": "Date of Birth",
+            "gender": "Gender",
+            "genderMale": "Male",
+            "genderFemale": "Female"
+        },
+        "passport": {
+            "title": "Passport / ID Details",
+            "desc": "Passport details for issuing a policy.",
+            "series": "Series",
+            "number": "Number",
+            "pinfl": "PINFL",
+            "pinflHint": "The 14-digit number on your passport."
+        },
+        "actions": {
+            "cancel": "Cancel",
+            "save": "Save"
+        }
+    },
+    "AdminAnalytics": {
+        "main": {
+            "title": "Insurance Companies Analytics",
+            "subtitle": "Performance monitoring and key metrics of OsonPolis insurance partners.",
+            "exportBtn": "Export Report"
+        },
+        "cards": {
+            "premium": "Premium Partner",
+            "active": "Active",
+            "leader": "Growth Leader",
+            "sold": "Policies Sold",
+            "conversion": "Conversion",
+            "payouts": "Payouts"
+        },
+        "chart": {
+            "title": "Partner Revenue Comparison",
+            "subtitle": "Profitability by companies for the current quarter",
+            "revenue": "Revenue"
+        },
+        "list": {
+            "title": "Detailed Partner List",
+            "sortBy": "Sort by:",
+            "sort1": "Best performance",
+            "sort2": "High renewal rate",
+            "sort3": "Maximum payouts",
+            "showAll": "Show all partners (12)"
+        },
+        "table": {
+            "partner": "Partner",
+            "type": "Insurance Type",
+            "retention": "Retention (Renewal)",
+            "complaints": "Complaints Rating",
+            "status": "Status",
+            "action": "Action",
+            "normal": "Normal",
+            "attention": "Attention",
+            "details": "Details"
+        }
+    },
+    "AdminSMS": {
+        "main": {
+            "title": "SMS Notification Center",
+            "subtitle": "Management of automatic reminders and manual broadcasts.",
+            "exportBtn": "Export Logs"
+        },
+        "tabs": {
+            "create": "Create Broadcast",
+            "history": "Message History",
+            "templates": "Templates",
+            "automation": "Automation",
+            "pro": "Pro"
+        },
+        "editor": {
+            "title": "New Message",
+            "templateLabel": "Message Template",
+            "template1": "Renewal Reminder",
+            "template2": "Welcome Message",
+            "template3": "Payout Notification",
+            "template4": "Special Offer",
+            "recipientLabel": "Recipient Group",
+            "recipient1": "Expires in 7 days (42 pax)",
+            "recipient2": "All active drivers",
+            "recipient3": "New registrations (today)",
+            "recipient4": "Select manually...",
+            "textLabel": "Message Text",
+            "textPlaceholder": "Enter message text...",
+            "variables": "Available variables: ",
+            "coverage": "Coverage",
+            "smsCount": "SMS Count",
+            "totalCost": "Total Cost",
+            "btnSchedule": "Schedule",
+            "btnSend": "Send Now"
+        },
+        "history": {
+            "title": "Recent Sends",
+            "viewAll": "All messages",
+            "recipient": "Recipient",
+            "date": "Date and Time",
+            "status": "Status",
+            "type": "Type",
+            "delivered": "Delivered",
+            "error": "Error",
+            "reminder": "Reminder",
+            "broadcast": "Broadcast",
+            "system": "System"
+        },
+        "footer": {
+            "title": "Need help setting up automation?",
+            "desc": "Our experts will help you set up complex notification scenarios to retain customers and increase conversion.",
+            "btn": "Contact Tech Support"
+        }
+    }
+}
