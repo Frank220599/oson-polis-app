@@ -115,35 +115,32 @@ export default function Home() {
                   <span className="material-symbols-outlined text-lg text-slate-400 group-focus-within:text-primary">badge</span>
                   {t("calcForm.licenseLabel")}
                 </span>
-                <div className="flex gap-2">
-                  <div className="relative w-24">
-                    <input
-                      className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl h-14 px-3 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 font-bold uppercase tracking-widest text-center ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700/50 focus:border-primary'}`}
-                      placeholder="AAF"
-                      type="text"
-                      value={licenseSeries}
-                      onChange={(e) => { setLicenseSeries(e.target.value.toUpperCase().slice(0, 3)); setShowOffers(false); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
-                    />
+                <div className="relative">
+                  <input
+                    className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl h-14 px-4 pr-10 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 font-bold tracking-[0.1em] ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700/50 focus:border-primary'}`}
+                    placeholder={t("calcForm.licensePlaceholder")}
+                    type="text"
+                    value={`${licenseSeries}${licenseNumber ? ' ' + licenseNumber : ''}`}
+                    onChange={(e) => {
+                      let val = e.target.value.toUpperCase().replace(/\s/g, '');
+                      let series = val.slice(0, 3).replace(/[^A-Z]/g, '');
+                      let number = val.slice(3, 10).replace(/\D/g, '');
 
-                  </div>
-                  <div className="relative flex-grow">
-                    <input
-                      className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl h-14 px-4 pr-10 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 font-bold tracking-widest ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700/50 focus:border-primary'}`}
-                      placeholder="1234567"
-                      type="text"
-                      value={licenseNumber}
-                      onChange={(e) => { setLicenseNumber(e.target.value.replace(/\D/g, '').slice(0, 7)); setShowOffers(false); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
-                    />
-                    {licenseNumber && (
-                      <button
-                        type="button"
-                        onClick={() => { setLicenseNumber(""); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
-                      >
-                        <span className="material-symbols-outlined text-xl">close</span>
-                      </button>
-                    )}
-                  </div>
+                      setLicenseSeries(series);
+                      setLicenseNumber(number);
+                      setShowOffers(false);
+                      setErrors(prev => ({ ...prev, techPassport: undefined }));
+                    }}
+                  />
+                  {(licenseSeries || licenseNumber) && (
+                    <button
+                      type="button"
+                      onClick={() => { setLicenseSeries(""); setLicenseNumber(""); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                    >
+                      <span className="material-symbols-outlined text-xl">close</span>
+                    </button>
+                  )}
                 </div>
                 {errors.techPassport && <span className="text-red-500 text-xs font-medium inline-block mt-1">{errors.techPassport}</span>}
               </div>

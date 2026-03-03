@@ -22,8 +22,13 @@ export default function OsagoStep3Page() {
     const [duration, setDuration] = useState<'year' | 'six_months'>('year');
     const [driversCount, setDriversCount] = useState<'limited' | 'unlimited'>('limited');
     const [extraDrivers, setExtraDrivers] = useState<number[]>([]);
-    const [driversData, setDriversData] = useState<Record<number, { passportSeries: string; passportNumber: string; birthDate: string; relation: string }>>({});
-    const [errors, setErrors] = useState<Record<number, { passportSeries?: string; passportNumber?: string; birthDate?: string }>>({});
+    const [driversData, setDriversData] = useState<Record<number, { pinfl: string; passportSeries: string; passportNumber: string; birthDate: string; relation: string }>>({});
+    const [errors, setErrors] = useState<Record<number, { pinfl?: string; passportSeries?: string; passportNumber?: string; birthDate?: string }>>({});
+
+    // API calculation state
+    const [amount, setAmount] = useState<number | null>(null);
+    const [isLoadingAmount, setIsLoadingAmount] = useState(false);
+    const [calcError, setCalcError] = useState<string | null>(null);
 
     // Read URL params on client mount (keeps page statically renderable)
     useEffect(() => {
@@ -37,14 +42,90 @@ export default function OsagoStep3Page() {
         setPhone(searchParams.get("phone") || "");
         const dc = searchParams.get("driversCount") || searchParams.get("drivers") || 'limited';
         setDriversCount(dc as 'limited' | 'unlimited');
+
+        const driversDataParam = searchParams.get("driversData");
+        if (driversDataParam) {
+            try {
+                const parsed = JSON.parse(decodeURIComponent(driversDataParam));
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    const newExtraDrivers: number[] = [];
+                    const newDriversData: Record<number, any> = {};
+                    parsed.forEach((d, i) => {
+                        const id = Date.now() + i;
+                        newExtraDrivers.push(id);
+                        newDriversData[id] = d;
+                    });
+                    setExtraDrivers(newExtraDrivers);
+                    setDriversData(newDriversData);
+                }
+            } catch (e) {
+                console.error("Failed to parse drivers data", e);
+            }
+        }
+
         router.prefetch("/osago/step-4");
     }, [searchParams, router]);
+
+    // Calculate OSAGO price dynamically when duration or driversCount changes
+    useEffect(() => {
+        if (!plate || !techPassportSeries || !techPassportNumber) return;
+
+        const fetchCalculation = async () => {
+            setIsLoadingAmount(true);
+            setCalcError(null);
+            try {
+                // Collect main applicant PINFL and any properly filled extra drivers PINFLs
+                const allDrivers = [pinfl.replace(/\s/g, '')];
+                if (driversCount === 'limited') {
+                    Object.values(driversData).forEach(d => {
+                        const cleanPinfl = d.pinfl?.replace(/\s/g, '');
+                        if (cleanPinfl && cleanPinfl.length === 14) {
+                            allDrivers.push(cleanPinfl);
+                        }
+                    });
+                }
+
+                const response = await fetch('/api/osago/calculate-kbm', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        gos_number: plate,
+                        tech_sery: techPassportSeries,
+                        tech_number: techPassportNumber,
+                        period_id: duration === 'year' ? 1 : 2,
+                        limited: driversCount === 'limited',
+                        drivers: allDrivers
+                    })
+                });
+
+                const data = await response.json();
+                if (data?.result && data?.response?.amount_uzs) {
+                    setAmount(data.response.amount_uzs);
+                } else {
+                    console.error('API Error:', data);
+                    setCalcError('Failed to calculate exact amount (Using Sandbox estimate)');
+                    // Fallback amount for display so user is not stuck if Sandbox is down 
+                    setAmount(56000);
+                }
+            } catch (error) {
+                console.error('Fetch err:', error);
+                setCalcError('Failed to calculate amount');
+                setAmount(56000); // Fallback
+            } finally {
+                setIsLoadingAmount(false);
+            }
+        };
+
+        // Debounce slightly to wait for state to settle
+        const timer = setTimeout(fetchCalculation, 500);
+        return () => clearTimeout(timer);
+    }, [duration, driversCount, plate, techPassportSeries, techPassportNumber]);
 
     const addDriver = () => {
         if (extraDrivers.length < 3) {
             const id = Date.now();
             setExtraDrivers([...extraDrivers, id]);
-            setDriversData(prev => ({ ...prev, [id]: { passportSeries: '', passportNumber: '', birthDate: '', relation: t("driversInfo.relations.none") } }));
+            setDriversData(prev => ({ ...prev, [id]: { pinfl: '', passportSeries: '', passportNumber: '', birthDate: '', relation: 'none' } }));
         }
     };
 
@@ -101,7 +182,10 @@ export default function OsagoStep3Page() {
             if (hasError) return;
         }
 
-        router.push(`/osago/step-4?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passport}&phone=${encodeURIComponent(phone)}&duration=${duration}&driversCount=${driversCount}`);
+        // Serialize extra drivers to persist them across steps
+        const serializedDrivers = encodeURIComponent(JSON.stringify(Object.values(driversData)));
+
+        router.push(`/osago/step-4?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passport}&phone=${encodeURIComponent(phone)}&duration=${duration}&driversCount=${driversCount}&amount=${amount}&driversData=${serializedDrivers}`);
     };
 
     return (
@@ -249,136 +333,156 @@ export default function OsagoStep3Page() {
                                 </div>
                             </div>
 
-                            <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 transition-all duration-200">
-                                <div className="flex items-center gap-3 mb-8">
-                                    <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm">5</span>
-                                    <h2 className="text-xl font-bold text-slate-900 dark:text-white">{t("driversInfo.title")}</h2>
-                                </div>
-                                <div className="space-y-8">
-                                    <div className="space-y-3">
-                                        <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">{t("driversInfo.driver1")}</h3>
-                                        <div className="relative">
-                                            <input className="w-full h-14 px-6 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl text-slate-900 dark:text-white font-bold focus:ring-0 cursor-default" readOnly type="text" value="BEHZOD ANVAROV ALISHER O'G'LI" />
-                                            <div className="absolute right-6 top-1/2 -translate-y-1/2 text-emerald-500 flex items-center gap-1">
-                                                <span className="material-symbols-outlined text-xl font-bold">check_circle</span>
+                            {driversCount === 'limited' && (
+                                <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 transition-all duration-200">
+                                    <div className="flex items-center gap-3 mb-8">
+                                        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm">5</span>
+                                        <h2 className="text-xl font-bold text-slate-900 dark:text-white">{t("driversInfo.title")}</h2>
+                                    </div>
+                                    <div className="space-y-8">
+                                        <div className="space-y-3">
+                                            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">{t("driversInfo.driver1")}</h3>
+                                            <div className="relative">
+                                                <input className="w-full h-14 px-6 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl text-slate-900 dark:text-white font-bold focus:ring-0 cursor-default" readOnly type="text" value="BEHZOD ANVAROV ALISHER O'G'LI" />
+                                                <div className="absolute right-6 top-1/2 -translate-y-1/2 text-emerald-500 flex items-center gap-1">
+                                                    <span className="material-symbols-outlined text-xl font-bold">check_circle</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {extraDrivers.map((id, index) => (
-                                        <div key={id} className="pt-8 border-t border-slate-100 dark:border-slate-800 space-y-6">
-                                            <div className="flex items-center justify-between">
-                                                <h3 className="text-lg font-bold text-slate-900 dark:text-white">{t("driversInfo.driver2").replace(/\d+/, (index + 2).toString())}</h3>
-                                                <button type="button" onClick={() => removeDriver(id)} className="flex items-center gap-1.5 text-rose-500 hover:text-rose-600 transition-colors">
-                                                    <span className="material-symbols-outlined text-[18px]">delete</span>
-                                                    <span className="text-xs font-bold uppercase tracking-wider">{t("driversInfo.delete")}</span>
-                                                </button>
-                                            </div>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                                <div className="md:col-span-2">
-                                                    <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">{t("driversInfo.relation")}</label>
-                                                    <div className="relative">
-                                                        <select
-                                                            value={driversData[id]?.relation}
-                                                            onChange={(e) => updateDriverData(id, 'relation', e.target.value)}
-                                                            className="w-full h-14 px-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-primary rounded-xl text-slate-900 dark:text-white appearance-none cursor-pointer pr-10 font-medium transition-all"
-                                                        >
-                                                            <option>{t("driversInfo.relations.none")}</option>
-                                                            <option>{t("driversInfo.relations.parents")}</option>
-                                                            <option>{t("driversInfo.relations.spouse")}</option>
-                                                            <option>{t("driversInfo.relations.siblings")}</option>
-                                                            <option>{t("driversInfo.relations.children")}</option>
-                                                        </select>
-                                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 transition-colors">
-                                                            <span className="material-symbols-outlined">expand_more</span>
+                                        {extraDrivers.map((id, index) => (
+                                            <div key={id} className="pt-8 border-t border-slate-100 dark:border-slate-800 space-y-6">
+                                                <div className="flex items-center justify-between">
+                                                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">{t("driversInfo.driver2").replace(/\d+/, (index + 2).toString())}</h3>
+                                                    <button type="button" onClick={() => removeDriver(id)} className="flex items-center gap-1.5 text-rose-500 hover:text-rose-600 transition-colors">
+                                                        <span className="material-symbols-outlined text-[18px]">delete</span>
+                                                        <span className="text-xs font-bold uppercase tracking-wider">{t("driversInfo.delete")}</span>
+                                                    </button>
+                                                </div>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                    <div className="md:col-span-2">
+                                                        <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">{t("driversInfo.relation")}</label>
+                                                        <div className="relative">
+                                                            <select
+                                                                value={driversData[id]?.relation}
+                                                                onChange={(e) => updateDriverData(id, 'relation', e.target.value)}
+                                                                className="w-full h-14 px-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-primary rounded-xl text-slate-900 dark:text-white appearance-none bg-none cursor-pointer pr-10 font-medium transition-all"
+                                                            >
+                                                                <option value="none">{t("driversInfo.relations.none")}</option>
+                                                                <option value="father">{t("driversInfo.relations.father")}</option>
+                                                                <option value="older_brother">{t("driversInfo.relations.older_brother")}</option>
+                                                                <option value="younger_brother">{t("driversInfo.relations.younger_brother")}</option>
+                                                                <option value="wife">{t("driversInfo.relations.wife")}</option>
+                                                                <option value="mother">{t("driversInfo.relations.mother")}</option>
+                                                                <option value="husband">{t("driversInfo.relations.husband")}</option>
+                                                                <option value="son">{t("driversInfo.relations.son")}</option>
+                                                                <option value="daughter">{t("driversInfo.relations.daughter")}</option>
+                                                                <option value="older_sister">{t("driversInfo.relations.older_sister")}</option>
+                                                                <option value="younger_sister">{t("driversInfo.relations.younger_sister")}</option>
+                                                            </select>
+                                                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 transition-colors">
+                                                                <span className="material-symbols-outlined">expand_more</span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div>
-                                                    <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">{t("driversInfo.passport")}</label>
-                                                    <div className="flex gap-3">
-                                                        <div className="w-24 flex flex-col relative">
-                                                            <input
-                                                                value={driversData[id]?.passportSeries}
-                                                                onChange={(e) => updateDriverData(id, 'passportSeries', e.target.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 2))}
-                                                                className={`w-full h-14 px-4 bg-slate-50 dark:bg-slate-800 border-2 rounded-xl text-slate-900 dark:text-white text-center uppercase font-bold focus:ring-0 transition-all placeholder:text-slate-400 ${errors[id]?.passportSeries ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
-                                                                placeholder="AA" type="text"
-                                                            />
+                                                    <div>
+                                                        <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">{t("driversInfo.passport")}</label>
+                                                        <div className="flex gap-3">
+                                                            <div className="w-24 flex flex-col relative">
+                                                                <input
+                                                                    value={driversData[id]?.passportSeries}
+                                                                    onChange={(e) => updateDriverData(id, 'passportSeries', e.target.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 2))}
+                                                                    className={`w-full h-14 px-4 bg-slate-50 dark:bg-slate-800 border-2 rounded-xl text-slate-900 dark:text-white text-center uppercase font-bold focus:ring-0 transition-all placeholder:text-slate-400 ${errors[id]?.passportSeries ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
+                                                                    placeholder="AA" type="text"
+                                                                />
 
+                                                            </div>
+                                                            <div className="flex-grow flex flex-col relative">
+                                                                <input
+                                                                    value={driversData[id]?.passportNumber}
+                                                                    onChange={(e) => updateDriverData(id, 'passportNumber', e.target.value.replace(/\D/g, '').slice(0, 7))}
+                                                                    className={`w-full h-14 px-4 pr-10 bg-slate-50 dark:bg-slate-800 border-2 rounded-xl text-slate-900 dark:text-white font-bold tracking-widest focus:ring-0 transition-all placeholder:text-slate-400 ${errors[id]?.passportNumber ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
+                                                                    placeholder="1234567" type="text"
+                                                                />
+                                                                {driversData[id]?.passportNumber && (
+                                                                    <button
+                                                                        type="button"
+                                                                        tabIndex={-1}
+                                                                        aria-label="Clear field"
+                                                                        onClick={() => updateDriverData(id, 'passportNumber', "")}
+                                                                        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                                                                    >
+                                                                        <span className="material-symbols-outlined text-xl">close</span>
+                                                                    </button>
+                                                                )}
+                                                            </div>
                                                         </div>
-                                                        <div className="flex-grow flex flex-col relative">
+                                                        {(errors[id]?.passportSeries || errors[id]?.passportNumber) && (
+                                                            <span className="text-red-500 text-xs font-medium mt-1 inline-block">{errors[id]?.passportSeries || errors[id]?.passportNumber}</span>
+                                                        )}
+                                                    </div>
+                                                    <div>
+                                                        <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">{t("driversInfo.birthDate")}</label>
+                                                        <div className="relative">
                                                             <input
-                                                                value={driversData[id]?.passportNumber}
-                                                                onChange={(e) => updateDriverData(id, 'passportNumber', e.target.value.replace(/\D/g, '').slice(0, 7))}
-                                                                className={`w-full h-14 px-4 pr-10 bg-slate-50 dark:bg-slate-800 border-2 rounded-xl text-slate-900 dark:text-white font-bold tracking-widest focus:ring-0 transition-all placeholder:text-slate-400 ${errors[id]?.passportNumber ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
-                                                                placeholder="1234567" type="text"
+                                                                value={driversData[id]?.birthDate}
+                                                                onChange={(e) => updateDriverData(id, 'birthDate', e.target.value)}
+                                                                className={`w-full h-14 pl-12 pr-10 bg-slate-50 dark:bg-slate-800 border-2 rounded-xl text-slate-900 dark:text-white font-medium focus:ring-0 transition-all [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:w-12 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:m-0 ${errors[id]?.birthDate ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
+                                                                type="date"
                                                             />
-                                                            {driversData[id]?.passportNumber && (
+                                                            <div className={`absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none transition-colors ${errors[id]?.birthDate ? 'text-red-400' : 'text-slate-400'}`}>
+                                                                <span className="material-symbols-outlined">calendar_month</span>
+                                                            </div>
+                                                            {driversData[id]?.birthDate && (
                                                                 <button
                                                                     type="button"
-                                                                    aria-label="Clear field"
-                                                                    onClick={() => updateDriverData(id, 'passportNumber', "")}
-                                                                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                                                                    tabIndex={-1}
+                                                                    onClick={() => updateDriverData(id, 'birthDate', "")}
+                                                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
                                                                 >
                                                                     <span className="material-symbols-outlined text-xl">close</span>
                                                                 </button>
                                                             )}
                                                         </div>
+                                                        {errors[id]?.birthDate && <span className="text-red-500 text-xs font-medium mt-1 inline-block">{errors[id]?.birthDate}</span>}
                                                     </div>
-                                                    {(errors[id]?.passportSeries || errors[id]?.passportNumber) && (
-                                                        <span className="text-red-500 text-xs font-medium mt-1 inline-block">{errors[id]?.passportSeries || errors[id]?.passportNumber}</span>
-                                                    )}
-                                                </div>
-                                                <div>
-                                                    <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">{t("driversInfo.birthDate")}</label>
-                                                    <div className="relative">
-                                                        <input
-                                                            value={driversData[id]?.birthDate}
-                                                            onChange={(e) => updateDriverData(id, 'birthDate', e.target.value)}
-                                                            className={`w-full h-14 pl-12 pr-10 bg-slate-50 dark:bg-slate-800 border-2 rounded-xl text-slate-900 dark:text-white font-medium focus:ring-0 transition-all [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:w-12 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:m-0 ${errors[id]?.birthDate ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
-                                                            type="date"
-                                                        />
-                                                        <div className={`absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none transition-colors ${errors[id]?.birthDate ? 'text-red-400' : 'text-slate-400'}`}>
-                                                            <span className="material-symbols-outlined">calendar_month</span>
-                                                        </div>
-                                                        {driversData[id]?.birthDate && (
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => updateDriverData(id, 'birthDate', "")}
-                                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
-                                                            >
-                                                                <span className="material-symbols-outlined text-xl">close</span>
-                                                            </button>
-                                                        )}
-                                                    </div>
-                                                    {errors[id]?.birthDate && <span className="text-red-500 text-xs font-medium mt-1 inline-block">{errors[id]?.birthDate}</span>}
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
 
-                                    {extraDrivers.length < 3 && (
-                                        <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
-                                            <button type="button" onClick={addDriver} className="flex items-center gap-2 text-primary font-bold hover:opacity-80 transition-all">
-                                                <span className="material-symbols-outlined font-bold text-xl">add_circle</span>
-                                                <span>{t("driversInfo.addDriver")}</span>
-                                            </button>
-                                        </div>
-                                    )}
+                                        {extraDrivers.length < 3 && (
+                                            <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
+                                                <button type="button" onClick={addDriver} className="flex items-center gap-2 text-primary font-bold hover:opacity-80 transition-all">
+                                                    <span className="material-symbols-outlined font-bold text-xl">add_circle</span>
+                                                    <span>{t("driversInfo.addDriver")}</span>
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
                             <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-4">
-                                <Link href={`/osago/step-2?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&drivers=${driversCount}`} className="flex items-center justify-center rounded-xl h-14 px-8 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-base font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all w-full md:w-auto">
+                                <Link href={`/osago/step-2?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passport}&phone=${encodeURIComponent(phone)}&drivers=${driversCount}`} className="flex items-center justify-center rounded-xl h-14 px-8 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-base font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all w-full md:w-auto">
                                     <span className="material-symbols-outlined mr-2">arrow_back</span>
                                     {t("buttons.back")}
                                 </Link>
                                 <button
                                     onClick={validateAndProceed}
-                                    className="flex items-center justify-center rounded-xl h-14 px-12 bg-primary text-white text-base font-bold hover:opacity-90 transition-all shadow-lg shadow-blue-200 dark:shadow-none w-full md:w-auto"
+                                    disabled={isLoadingAmount}
+                                    className={`flex items-center justify-center rounded-xl h-14 px-12 bg-primary text-white text-base font-bold hover:opacity-90 transition-all shadow-lg shadow-blue-200 dark:shadow-none w-full md:w-auto ${isLoadingAmount ? 'opacity-70 cursor-not-allowed' : ''}`}
                                 >
-                                    {t("buttons.continue")}
-                                    <span className="material-symbols-outlined ml-2">arrow_forward</span>
+                                    {isLoadingAmount ? (
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                            <span>{t("buttons.continue")}</span>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            {t("buttons.continue")}
+                                            <span className="material-symbols-outlined ml-2">arrow_forward</span>
+                                        </>
+                                    )}
                                 </button>
                             </div>
                         </div>
@@ -403,20 +507,27 @@ export default function OsagoStep3Page() {
                                 <div className="space-y-4">
                                     <div className="flex justify-between items-start">
                                         <span className="text-sm text-slate-500 dark:text-slate-400">{t("sidebar.auto")}</span>
-                                        <span className="text-sm font-bold text-slate-900 dark:text-white text-right">Toyota Camry<br /><span className="text-slate-400 dark:text-slate-500 font-medium whitespace-nowrap bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">{plate || '01 A 123 AA'}</span></span>
+                                        <span className="text-sm font-bold text-slate-900 dark:text-white text-right"><span className="text-slate-600 dark:text-slate-300 font-medium whitespace-nowrap bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">{plate || '01 A 123 AA'}</span></span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm">
-                                        <span className="text-slate-500 dark:text-slate-400">{t("sidebar.region")}</span>
-                                        <span className="font-bold text-slate-900 dark:text-white">{t("sidebar.regionValue")}</span>
+                                        <span className="text-slate-500 dark:text-slate-400">{t("duration.title")}</span>
+                                        <span className="font-bold text-slate-900 dark:text-white">{duration === 'year' ? t("duration.year.title") : t("duration.six_months.title")}</span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm">
-                                        <span className="text-slate-500 dark:text-slate-400">{t("sidebar.mainDriver")}</span>
-                                        <span className="font-bold text-slate-900 dark:text-white">{t("sidebar.mainDriverValue")}</span>
+                                        <span className="text-slate-500 dark:text-slate-400">{t("driversCount.title")}</span>
+                                        <span className="font-bold text-slate-900 dark:text-white">{driversCount === 'limited' ? t("driversCount.limited.title") : t("driversCount.unlimited.title")}</span>
                                     </div>
                                     <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
                                         <span className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">{t("sidebar.total")}</span>
                                         <div className="flex flex-col items-end">
-                                            <span className="text-2xl font-black text-primary">56 000 UZS</span>
+                                            {isLoadingAmount ? (
+                                                <div className="h-8 w-24 bg-slate-200 dark:bg-slate-700 animate-pulse rounded"></div>
+                                            ) : (
+                                                <span className="text-2xl font-black text-primary">
+                                                    {amount ? new Intl.NumberFormat('uz-UZ').format(amount) : '--'} UZS
+                                                </span>
+                                            )}
+                                            {calcError && <span className="text-[10px] text-red-500 max-w-[120px] text-right mt-1 font-medium">{calcError}</span>}
                                         </div>
                                     </div>
                                 </div>

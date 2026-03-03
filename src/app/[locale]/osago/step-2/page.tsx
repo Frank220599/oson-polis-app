@@ -32,6 +32,18 @@ export default function OsagoStep2Page() {
         setTechPassportNumber(searchParams.get("techPassportNumber") || searchParams.get("licenseNumber") || "");
         setTechPassport(searchParams.get("techPassport") || searchParams.get("license") || "");
         setDrivers(searchParams.get("drivers") || "");
+
+        setPinfl(searchParams.get("pinfl") || "");
+        const passport = searchParams.get("passport") || "";
+        if (passport.length >= 2) {
+            setPassportSeries(passport.slice(0, 2));
+            setPassportNumber(passport.slice(2));
+        }
+        const phone = searchParams.get("phone");
+        if (phone) {
+            setPhoneNumber(decodeURIComponent(phone));
+        }
+
         router.prefetch("/osago/step-3");
     }, [searchParams, router]);
 
@@ -97,22 +109,17 @@ export default function OsagoStep2Page() {
                                                 value={pinfl}
                                                 onChange={(e) => {
                                                     const raw = e.target.value.replace(/\D/g, '').slice(0, 14);
-                                                    // Format: XXXX XXXX XXXX XX
-                                                    let formatted = raw;
-                                                    if (raw.length > 4) formatted = raw.slice(0, 4) + ' ' + raw.slice(4);
-                                                    if (raw.length > 8) formatted = formatted.slice(0, 9) + ' ' + formatted.slice(9);
-                                                    if (raw.length > 12) formatted = formatted.slice(0, 14) + ' ' + formatted.slice(14);
-
-                                                    setPinfl(formatted);
+                                                    setPinfl(raw);
                                                     setErrors(prev => ({ ...prev, pinfl: undefined }));
                                                 }}
                                                 className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-4 pr-10 transition-all text-slate-900 dark:text-white h-14 font-medium placeholder:text-slate-400 focus:ring-0 ${errors.pinfl ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
-                                                placeholder={t("form.pinflPlaceholder")}
+                                                placeholder="12345678901234"
                                                 type="text"
                                             />
                                             {pinfl && (
                                                 <button
                                                     type="button"
+                                                    tabIndex={-1}
                                                     aria-label="Clear field"
                                                     onClick={() => { setPinfl(""); setErrors(prev => ({ ...prev, pinfl: undefined })); }}
                                                     className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
@@ -149,6 +156,7 @@ export default function OsagoStep2Page() {
                                                     {passportNumber && (
                                                         <button
                                                             type="button"
+                                                            tabIndex={-1}
                                                             aria-label="Clear field"
                                                             onClick={() => { setPassportNumber(""); setErrors(prev => ({ ...prev, passportNumber: undefined })); }}
                                                             className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
@@ -206,6 +214,7 @@ export default function OsagoStep2Page() {
                                                 {phoneNumber.length > 5 && (
                                                     <button
                                                         type="button"
+                                                        tabIndex={-1}
                                                         aria-label="Clear field"
                                                         onClick={() => { setPhoneNumber("+998 "); setErrors(prev => ({ ...prev, phone: undefined })); }}
                                                         className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"

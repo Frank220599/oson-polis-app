@@ -424,10 +424,16 @@
             "relation": "Степень родства с владельцем авто",
             "relations": {
                 "none": "Не родственник",
-                "parents": "Отец/Мать",
-                "spouse": "Супруг/Супруга",
-                "siblings": "Брат/Сестра",
-                "children": "Сын/Дочь"
+                "father": "Отец",
+                "older_brother": "Старший брат",
+                "younger_brother": "Младший брат",
+                "wife": "Жена",
+                "mother": "Мать",
+                "husband": "Муж",
+                "son": "Сын",
+                "daughter": "Дочь",
+                "older_sister": "Старшая сестра",
+                "younger_sister": "Младшая сестра"
             },
             "passport": "Серия и номер паспорта / ID",
             "birthDate": "Дата рождения",
@@ -505,6 +511,22 @@
             "totalLabel": "К оплате:",
             "secureTitle": "Безопасная оплата",
             "secureText": "Все платежи осуществляются через безопасные шлюзы систем Payme, Click или Uzum Pay."
+        },
+        "duration": {
+            "year": {
+                "title": "1 год"
+            },
+            "six_months": {
+                "title": "6 месяцев"
+            }
+        },
+        "driversCount": {
+            "limited": {
+                "title": "До 5 человек"
+            },
+            "unlimited": {
+                "title": "Без ограничений"
+            }
         },
         "footer": {
             "copyright": "© 2024. Все права защищены.",

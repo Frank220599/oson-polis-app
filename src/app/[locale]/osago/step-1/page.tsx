@@ -96,6 +96,7 @@ export default function OsagoStep1Page() {
                                             {plate && (
                                                 <button
                                                     type="button"
+                                                    tabIndex={-1}
                                                     aria-label="Clear field"
                                                     onClick={() => { setPlate(""); setErrors(prev => ({ ...prev, plate: undefined })); }}
                                                     className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
@@ -108,33 +109,32 @@ export default function OsagoStep1Page() {
                                     </div>
                                     <div>
                                         <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">{t("form.techPassport")}</label>
-                                        <div className="flex gap-2">
-                                            <div className="relative w-24">
-                                                <input
-                                                    value={techPassportSeries}
-                                                    onChange={(e) => { setTechPassportSeries(e.target.value.toUpperCase().slice(0, 3)); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
-                                                    className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-3 transition-all text-slate-900 dark:text-white h-14 font-bold uppercase tracking-widest text-center placeholder:text-slate-400 focus:ring-0 ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
-                                                    placeholder="AAF" type="text"
-                                                />
-                                            </div>
-                                            <div className="relative flex-grow">
-                                                <input
-                                                    value={techPassportNumber}
-                                                    onChange={(e) => { setTechPassportNumber(e.target.value.replace(/\D/g, '').slice(0, 7)); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
-                                                    className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-4 pr-10 transition-all text-slate-900 dark:text-white h-14 font-bold tracking-widest placeholder:text-slate-400 focus:ring-0 ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
-                                                    placeholder="1234567" type="text"
-                                                />
-                                                {techPassportNumber && (
-                                                    <button
-                                                        type="button"
-                                                        aria-label="Clear field"
-                                                        onClick={() => { setTechPassportNumber(""); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
-                                                        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
-                                                    >
-                                                        <span className="material-symbols-outlined text-xl">close</span>
-                                                    </button>
-                                                )}
-                                            </div>
+                                        <div className="relative">
+                                            <input
+                                                value={`${techPassportSeries}${techPassportNumber ? ' ' + techPassportNumber : ''}`}
+                                                onChange={(e) => {
+                                                    let val = e.target.value.toUpperCase().replace(/\s/g, '');
+                                                    let series = val.slice(0, 3).replace(/[^A-Z]/g, '');
+                                                    let number = val.slice(3, 10).replace(/\D/g, '');
+
+                                                    setTechPassportSeries(series);
+                                                    setTechPassportNumber(number);
+                                                    setErrors(prev => ({ ...prev, techPassport: undefined }));
+                                                }}
+                                                className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-4 pr-10 transition-all text-slate-900 dark:text-white h-14 font-bold tracking-[0.1em] placeholder:text-slate-400 focus:ring-0 ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
+                                                placeholder={t("form.techPassportPlaceholder")} type="text"
+                                            />
+                                            {(techPassportSeries || techPassportNumber) && (
+                                                <button
+                                                    type="button"
+                                                    tabIndex={-1}
+                                                    aria-label="Clear field"
+                                                    onClick={() => { setTechPassportSeries(""); setTechPassportNumber(""); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
+                                                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                                                >
+                                                    <span className="material-symbols-outlined text-xl">close</span>
+                                                </button>
+                                            )}
                                         </div>
                                         {errors.techPassport && <span className="text-red-500 text-xs font-medium mt-1 inline-block">{errors.techPassport}</span>}
                                     </div>

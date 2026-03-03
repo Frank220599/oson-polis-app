@@ -439,10 +439,16 @@
             "relation": "Avto egasiga qarindoshlik darajasi",
             "relations": {
                 "none": "Qarindosh emas",
-                "parents": "Ota/Ona",
-                "spouse": "Er/Xotin",
-                "siblings": "Aka/Uka/Opa/Singil",
-                "children": "O'g'il/Qiz"
+                "father": "Ota",
+                "older_brother": "Katta aka",
+                "younger_brother": "Uka",
+                "wife": "Xotin",
+                "mother": "Ona",
+                "husband": "Er",
+                "son": "O'g'il",
+                "daughter": "Qiz",
+                "older_sister": "Opa",
+                "younger_sister": "Singil"
             },
             "passport": "Pasport / ID seriya va raqami",
             "birthDate": "Tug'ilgan sana",
@@ -520,6 +526,22 @@
             "totalLabel": "To'lash uchun:",
             "secureTitle": "Xavfsiz to'lov",
             "secureText": "Barcha to'lovlar Payme, Click yoki Uzum Pay tizimlarining xavfsiz shlyuzlari orqali amalga oshiriladi."
+        },
+        "duration": {
+            "year": {
+                "title": "1 yil"
+            },
+            "six_months": {
+                "title": "6 oy"
+            }
+        },
+        "driversCount": {
+            "limited": {
+                "title": "5 kishigacha"
+            },
+            "unlimited": {
+                "title": "Cheklovsiz"
+            }
         },
         "footer": {
             "copyright": "© 2024. Barcha huquqlar himoyalangan.",

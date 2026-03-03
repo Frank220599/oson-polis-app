@@ -438,10 +438,16 @@
             "relation": "Relationship to Vehicle Owner",
             "relations": {
                 "none": "Not related",
-                "parents": "Father/Mother",
-                "spouse": "Spouse",
-                "siblings": "Brother/Sister",
-                "children": "Son/Daughter"
+                "father": "Father",
+                "older_brother": "Older brother",
+                "younger_brother": "Younger brother",
+                "wife": "Wife",
+                "mother": "Mother",
+                "husband": "Husband",
+                "son": "Son",
+                "daughter": "Daughter",
+                "older_sister": "Older sister",
+                "younger_sister": "Younger sister"
             },
             "passport": "Passport / ID Series and Number",
             "birthDate": "Date of Birth",
@@ -519,6 +525,22 @@
             "totalLabel": "Total to pay:",
             "secureTitle": "Secure Payment",
             "secureText": "All payments are processed through secure gateways of Payme, Click, or Uzum Pay systems."
+        },
+        "duration": {
+            "year": {
+                "title": "1 year"
+            },
+            "six_months": {
+                "title": "6 months"
+            }
+        },
+        "driversCount": {
+            "limited": {
+                "title": "Up to 5 people"
+            },
+            "unlimited": {
+                "title": "Unlimited"
+            }
         },
         "footer": {
             "copyright": "© 2024. All rights reserved.",
