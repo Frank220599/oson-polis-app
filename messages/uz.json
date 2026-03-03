@@ -423,11 +423,11 @@
             },
             "features": {
                 "damage80m": "Sizga yetkazilgan zarar uchun 80 mln so'mgacha",
-                "passportRequired": "Haydovchilarni pasport yoki ID bilan qo'shish shart",
+                "passportRequired": "Haydovchilarni qo'shish shart",
                 "peregonWithDoc": "«Peregon» xizmati faqat ishonchnoma bilan mavjud",
                 "cashback": "Keshbeksiz",
                 "allDrivers": "Avtoning barcha haydovchilari sug'urtalangan",
-                "noPassport": "Haydovchilarni pasport yoki ID bilan qo'shish shart emas",
+                "noPassport": "Haydovchilarni qo'shish shart emas",
                 "peregon": "«Peregon» xizmatini buyurtma qilish mumkin"
             }
         },

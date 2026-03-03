@@ -221,7 +221,6 @@ export default function OsagoStep3Page() {
                                                 { ok: true, text: t("driversCount.features.damage80m") },
                                                 { ok: false, text: t("driversCount.features.passportRequired") },
                                                 { ok: false, text: t("driversCount.features.peregonWithDoc") },
-                                                { ok: false, text: t("driversCount.features.cashback") },
                                             ].map((f, i) => (
                                                 <div key={i} className={`flex items-center gap-3 px-5 py-3 text-sm ${f.ok ? '' : 'opacity-50'}`}>
                                                     <span className={`material-symbols-outlined text-[18px] shrink-0 ${f.ok ? 'text-primary' : 'text-slate-400'}`}>
@@ -238,7 +237,6 @@ export default function OsagoStep3Page() {
                                                 { text: t("driversCount.features.allDrivers") },
                                                 { text: t("driversCount.features.noPassport") },
                                                 { text: t("driversCount.features.peregon") },
-                                                { text: t("driversCount.features.cashback") },
                                             ].map((f, i) => (
                                                 <div key={i} className="flex items-center gap-3 px-5 py-3 text-sm">
                                                     <span className="material-symbols-outlined text-[18px] shrink-0 text-primary">check_circle</span>

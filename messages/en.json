@@ -422,11 +422,11 @@
             },
             "features": {
                 "damage80m": "Coverage for damages up to 80 million UZS",
-                "passportRequired": "Drivers must be added with passport or ID",
+                "passportRequired": "Drivers must be added",
                 "peregonWithDoc": "\u00abPeregon\u00bb service requires power of attorney",
                 "cashback": "No cashback",
                 "allDrivers": "All vehicle drivers are insured",
-                "noPassport": "Add drivers without passport or ID",
+                "noPassport": "Adding drivers is not required",
                 "peregon": "\u00abPeregon\u00bb service can be ordered"
             }
         },
