@@ -44,6 +44,7 @@ export const viewport: Viewport = {
 };
 
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { NavigationProgress } from "@/components/NavigationProgress";
 
 export default async function RootLayout({
   children,
@@ -75,6 +76,7 @@ export default async function RootLayout({
       <body className={`${manrope.variable} antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="light">
+            <NavigationProgress />
             {children}
           </ThemeProvider>
         </NextIntlClientProvider>
