@@ -36,7 +36,11 @@
             "contacts": "Contacts",
             "legalInfo": "Legal Information"
         },
-        "copyright": "© 2024 OsonPolis. Licensed and regulated. All rights reserved."
+        "copyright": "© 2024 OsonPolis. Licensed and regulated. All rights reserved.",
+        "copyrightText": "© 2024 OsonPolis. All rights reserved.",
+        "privacy": "Privacy",
+        "terms": "Terms",
+        "contacts": "Contacts"
     },
     "Home": {
         "partnerBadge": "Official Insurance Partner",

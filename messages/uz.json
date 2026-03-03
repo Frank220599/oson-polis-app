@@ -36,7 +36,11 @@
             "contacts": "Kontaktlar",
             "legalInfo": "Huquqiy ma'lumot"
         },
-        "copyright": "© 2024 OsonPolis. Litsenziyalangan va tartibga solingan. Barcha huquqlar himoyalangan."
+        "copyright": "© 2024 OsonPolis. Litsenziyalangan va tartibga solingan. Barcha huquqlar himoyalangan.",
+        "copyrightText": "© 2024 OsonPolis. Barcha huquqlar himoyalangan.",
+        "privacy": "Maxfiylik",
+        "terms": "Shartlar",
+        "contacts": "Kontaktlar"
     },
     "Home": {
         "partnerBadge": "Rasmiy sug'urta hamkori",

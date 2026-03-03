@@ -6,7 +6,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter } from "next/navigation";
-import { formatTechPassport } from "@/lib/utils";
 
 function OsagoStep1Content() {
     const t = useTranslations("OsagoStep1");
@@ -20,12 +19,8 @@ function OsagoStep1Content() {
     const paramSeries = searchParams?.get("techPassportSeries") || searchParams?.get("licenseSeries") || "";
     const paramNumber = searchParams?.get("techPassportNumber") || searchParams?.get("licenseNumber") || "";
 
-    let initialValue = paramTechPassport;
-    if (!initialValue && (paramSeries || paramNumber)) {
-        initialValue = (paramSeries + " " + paramNumber).trim();
-    }
-
-    const [techPassport, setTechPassport] = useState(initialValue);
+    const [techPassportSeries, setTechPassportSeries] = useState(paramSeries || paramTechPassport.slice(0, 3) || "");
+    const [techPassportNumber, setTechPassportNumber] = useState(paramNumber || paramTechPassport.slice(3) || "");
 
     const [errors, setErrors] = useState<{ plate?: string; techPassport?: string }>({});
     const drivers = searchParams?.get("drivers") || "";
@@ -33,12 +28,12 @@ function OsagoStep1Content() {
     const validateAndProceed = () => {
         const newErrors: { plate?: string; techPassport?: string } = {};
         if (!plate.trim()) newErrors.plate = t("form.errors.plate");
-        if (techPassport.replace(/\s/g, '').length < 10) newErrors.techPassport = t("form.errors.techPassport");
+        if (!techPassportSeries.trim() || !techPassportNumber.trim()) newErrors.techPassport = t("form.errors.techPassport");
 
         setErrors(newErrors);
 
         if (Object.keys(newErrors).length === 0) {
-            router.push(`/osago/step-2?plate=${plate}&techPassport=${techPassport.replace(/\s/g, '')}&drivers=${drivers}`);
+            router.push(`/osago/step-2?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&drivers=${drivers}`);
         }
     };
 
@@ -110,27 +105,34 @@ function OsagoStep1Content() {
                                     </div>
                                     <div>
                                         <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">{t("form.techPassport")}</label>
-                                        <div className="relative">
-                                            <input
-                                                value={techPassport}
-                                                onChange={(e) => {
-                                                    const formatted = formatTechPassport(e.target.value);
-                                                    setTechPassport(formatted);
-                                                    setErrors(prev => ({ ...prev, techPassport: undefined }));
-                                                }}
-                                                className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-4 pr-10 transition-all text-slate-900 dark:text-white h-14 font-bold uppercase tracking-widest placeholder:text-slate-400 focus:ring-0 ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
-                                                placeholder={t("form.techPassportPlaceholder")} type="text"
-                                            />
-                                            {techPassport && (
-                                                <button
-                                                    type="button"
-                                                    aria-label="Clear field"
-                                                    onClick={() => { setTechPassport(""); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
-                                                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
-                                                >
-                                                    <span className="material-symbols-outlined text-xl">close</span>
-                                                </button>
-                                            )}
+                                        <div className="flex gap-2">
+                                            <div className="relative w-24">
+                                                <input
+                                                    value={techPassportSeries}
+                                                    onChange={(e) => { setTechPassportSeries(e.target.value.toUpperCase().slice(0, 3)); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
+                                                    className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-3 transition-all text-slate-900 dark:text-white h-14 font-bold uppercase tracking-widest text-center placeholder:text-slate-400 focus:ring-0 ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
+                                                    placeholder="AAF" type="text"
+                                                />
+
+                                            </div>
+                                            <div className="relative flex-grow">
+                                                <input
+                                                    value={techPassportNumber}
+                                                    onChange={(e) => { setTechPassportNumber(e.target.value.replace(/\D/g, '').slice(0, 7)); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
+                                                    className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-4 pr-10 transition-all text-slate-900 dark:text-white h-14 font-bold tracking-widest placeholder:text-slate-400 focus:ring-0 ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
+                                                    placeholder="1234567" type="text"
+                                                />
+                                                {techPassportNumber && (
+                                                    <button
+                                                        type="button"
+                                                        aria-label="Clear field"
+                                                        onClick={() => { setTechPassportNumber(""); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
+                                                        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                                                    >
+                                                        <span className="material-symbols-outlined text-xl">close</span>
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
                                         {errors.techPassport && <span className="text-red-500 text-xs font-medium mt-1 inline-block">{errors.techPassport}</span>}
                                     </div>

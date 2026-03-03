@@ -6,13 +6,14 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { formatTechPassport } from "@/lib/utils";
+
 
 export default function Home() {
   const t = useTranslations("Home");
 
   const [plate, setPlate] = useState("");
-  const [techPassport, setTechPassport] = useState("");
+  const [licenseSeries, setLicenseSeries] = useState("");
+  const [licenseNumber, setLicenseNumber] = useState("");
   const [drivers, setDrivers] = useState("");
   const [showOffers, setShowOffers] = useState(false);
   const [errors, setErrors] = useState<{ plate?: string; techPassport?: string; drivers?: string }>({});
@@ -22,7 +23,7 @@ export default function Home() {
     e.preventDefault();
     const newErrors: { plate?: string; techPassport?: string; drivers?: string } = {};
     if (!plate.trim()) newErrors.plate = t("calcForm.errors.plate");
-    if (techPassport.replace(/\s/g, '').length < 10) newErrors.techPassport = t("calcForm.errors.license");
+    if (!licenseSeries.trim() || !licenseNumber.trim()) newErrors.techPassport = t("calcForm.errors.license");
     if (!drivers) newErrors.drivers = t("calcForm.errors.drivers");
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
@@ -109,36 +110,43 @@ export default function Home() {
                 {errors.plate && <span className="text-red-500 text-xs font-medium inline-block mt-1">{errors.plate}</span>}
               </label>
 
-              <label className="flex flex-col gap-2 group">
+              <div className="flex flex-col gap-2 group">
                 <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-2 group-focus-within:text-primary transition-colors">
                   <span className="material-symbols-outlined text-lg text-slate-400 group-focus-within:text-primary">badge</span>
                   {t("calcForm.licenseLabel")}
                 </span>
-                <div className="relative">
-                  <input
-                    className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl h-14 px-4 pr-10 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 font-bold uppercase tracking-widest ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700/50 focus:border-primary'}`}
-                    placeholder={t("calcForm.licensePlaceholder")}
-                    type="text"
-                    value={techPassport}
-                    onChange={(e) => {
-                      const formatted = formatTechPassport(e.target.value);
-                      setTechPassport(formatted);
-                      setShowOffers(false);
-                      setErrors(prev => ({ ...prev, techPassport: undefined }));
-                    }}
-                  />
-                  {techPassport && (
-                    <button
-                      type="button"
-                      onClick={() => { setTechPassport(""); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
-                    >
-                      <span className="material-symbols-outlined text-xl">close</span>
-                    </button>
-                  )}
+                <div className="flex gap-2">
+                  <div className="relative w-24">
+                    <input
+                      className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl h-14 px-3 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 font-bold uppercase tracking-widest text-center ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700/50 focus:border-primary'}`}
+                      placeholder="AAF"
+                      type="text"
+                      value={licenseSeries}
+                      onChange={(e) => { setLicenseSeries(e.target.value.toUpperCase().slice(0, 3)); setShowOffers(false); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
+                    />
+
+                  </div>
+                  <div className="relative flex-grow">
+                    <input
+                      className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl h-14 px-4 pr-10 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 font-bold tracking-widest ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700/50 focus:border-primary'}`}
+                      placeholder="1234567"
+                      type="text"
+                      value={licenseNumber}
+                      onChange={(e) => { setLicenseNumber(e.target.value.replace(/\D/g, '').slice(0, 7)); setShowOffers(false); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
+                    />
+                    {licenseNumber && (
+                      <button
+                        type="button"
+                        onClick={() => { setLicenseNumber(""); setErrors(prev => ({ ...prev, techPassport: undefined })); }}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                      >
+                        <span className="material-symbols-outlined text-xl">close</span>
+                      </button>
+                    )}
+                  </div>
                 </div>
                 {errors.techPassport && <span className="text-red-500 text-xs font-medium inline-block mt-1">{errors.techPassport}</span>}
-              </label>
+              </div>
 
               <label className="flex flex-col gap-2 group">
                 <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-2 group-focus-within:text-primary transition-colors">
@@ -188,7 +196,7 @@ export default function Home() {
                         <span className="block text-xs text-slate-500">{t("offers.priceLabel")}</span>
                         <span className="block font-bold text-lg text-slate-900 dark:text-white">42 000 {t("offers.currency")}</span>
                       </div>
-                      <Link href={`/osago/step-1?plate=${plate}&techPassport=${techPassport.replace(/\s/g, '')}&drivers=${drivers}`} className="px-6 py-2.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-600 hover:text-primary transition-colors text-center">
+                      <Link href={`/osago/step-1?plate=${plate}&licenseSeries=${licenseSeries}&licenseNumber=${licenseNumber}&drivers=${drivers}`} className="px-6 py-2.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-600 hover:text-primary transition-colors text-center">
                         {t("offers.selectBtn")}
                       </Link>
                     </div>
@@ -212,7 +220,7 @@ export default function Home() {
                         <span className="block text-xs text-slate-500">{t("offers.priceLabel")}</span>
                         <span className="block font-bold text-lg text-slate-900 dark:text-white">40 500 {t("offers.currency")}</span>
                       </div>
-                      <Link href={`/osago/step-1?plate=${plate}&techPassport=${techPassport.replace(/\s/g, '')}&drivers=${drivers}`} className="px-6 py-2.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-600 hover:text-primary transition-colors text-center">
+                      <Link href={`/osago/step-1?plate=${plate}&licenseSeries=${licenseSeries}&licenseNumber=${licenseNumber}&drivers=${drivers}`} className="px-6 py-2.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-600 hover:text-primary transition-colors text-center">
                         {t("offers.selectBtn")}
                       </Link>
                     </div>
@@ -236,7 +244,7 @@ export default function Home() {
                         <span className="block text-xs text-slate-500">{t("offers.priceLabel")}</span>
                         <span className="block font-bold text-lg text-slate-900 dark:text-white">44 000 {t("offers.currency")}</span>
                       </div>
-                      <Link href={`/osago/step-1?plate=${plate}&techPassport=${techPassport.replace(/\s/g, '')}&drivers=${drivers}`} className="px-6 py-2.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-600 hover:text-primary transition-colors text-center">
+                      <Link href={`/osago/step-1?plate=${plate}&licenseSeries=${licenseSeries}&licenseNumber=${licenseNumber}&drivers=${drivers}`} className="px-6 py-2.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-600 hover:text-primary transition-colors text-center">
                         {t("offers.selectBtn")}
                       </Link>
                     </div>

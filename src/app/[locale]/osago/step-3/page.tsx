@@ -14,7 +14,9 @@ function OsagoStep3Content() {
 
     // Pass through previous step data
     const plate = searchParams?.get("plate") || "";
-    const techPassport = searchParams?.get("techPassport") || searchParams?.get("license") || "";
+    const techPassportSeries = searchParams?.get("techPassportSeries") || searchParams?.get("licenseSeries") || "";
+    const techPassportNumber = searchParams?.get("techPassportNumber") || searchParams?.get("licenseNumber") || "";
+    const techPassport = searchParams?.get("techPassport") || searchParams?.get("license") || ""; // fallback
     const pinfl = searchParams?.get("pinfl") || "";
     const passport = searchParams?.get("passport") || "";
     const phone = searchParams?.get("phone") || "";
@@ -55,36 +57,38 @@ function OsagoStep3Content() {
     };
 
     const validateAndProceed = () => {
-        let hasErrors = false;
-        const newErrors: Record<number, { passportSeries?: string; passportNumber?: string; birthDate?: string }> = {};
+        // Validation logic for extra drivers if limited
+        if (driversCount === 'limited' && extraDrivers.length > 0) {
+            const newErrors: Record<number, { passportSeries?: string; passportNumber?: string; birthDate?: string }> = {};
+            let hasError = false;
 
-        if (driversCount === 'limited') {
             extraDrivers.forEach(id => {
-                const data = driversData[id];
+                const driver = driversData[id];
                 const driverErrors: { passportSeries?: string; passportNumber?: string; birthDate?: string } = {};
 
-                if (!data.passportSeries || data.passportSeries.length !== 2) {
-                    driverErrors.passportSeries = t("driversInfo.errors.passportSeries");
+                if (!driver.passportSeries || driver.passportSeries.length !== 2) {
+                    driverErrors.passportSeries = "Required";
+                    hasError = true;
                 }
-                if (!data.passportNumber || data.passportNumber.length !== 7) {
-                    driverErrors.passportNumber = t("driversInfo.errors.passportNumber");
+                if (!driver.passportNumber || driver.passportNumber.length !== 7) {
+                    driverErrors.passportNumber = "Required";
+                    hasError = true;
                 }
-                if (!data.birthDate) {
-                    driverErrors.birthDate = t("driversInfo.errors.birthDate");
+                if (!driver.birthDate) {
+                    driverErrors.birthDate = "Required";
+                    hasError = true;
                 }
 
                 if (Object.keys(driverErrors).length > 0) {
                     newErrors[id] = driverErrors;
-                    hasErrors = true;
                 }
             });
+
+            setErrors(newErrors);
+            if (hasError) return;
         }
 
-        setErrors(newErrors);
-
-        if (!hasErrors) {
-            router.push(`/osago/step-4?plate=${plate}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passport}&phone=${encodeURIComponent(phone)}&duration=${duration}&driversCount=${driversCount}`);
-        }
+        router.push(`/osago/step-4?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passport}&phone=${encodeURIComponent(phone)}&duration=${duration}&driversCount=${driversCount}`);
     };
 
     return (
@@ -287,18 +291,10 @@ function OsagoStep3Content() {
                                                             <input
                                                                 value={driversData[id]?.passportSeries}
                                                                 onChange={(e) => updateDriverData(id, 'passportSeries', e.target.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 2))}
-                                                                className={`w-full h-14 px-4 pr-10 bg-slate-50 dark:bg-slate-800 border-2 rounded-xl text-slate-900 dark:text-white text-center uppercase font-bold focus:ring-0 transition-all placeholder:text-slate-400 ${errors[id]?.passportSeries ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
+                                                                className={`w-full h-14 px-4 bg-slate-50 dark:bg-slate-800 border-2 rounded-xl text-slate-900 dark:text-white text-center uppercase font-bold focus:ring-0 transition-all placeholder:text-slate-400 ${errors[id]?.passportSeries ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
                                                                 placeholder="AA" type="text"
                                                             />
-                                                            {driversData[id]?.passportSeries && (
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={() => updateDriverData(id, 'passportSeries', "")}
-                                                                    className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
-                                                                >
-                                                                    <span className="material-symbols-outlined text-lg">close</span>
-                                                                </button>
-                                                            )}
+
                                                         </div>
                                                         <div className="flex-grow flex flex-col relative">
                                                             <input
@@ -363,7 +359,7 @@ function OsagoStep3Content() {
                             </div>
 
                             <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-4">
-                                <Link href={`/osago/step-2?plate=${plate}&techPassport=${techPassport}&drivers=${driversCount}`} className="flex items-center justify-center rounded-xl h-14 px-8 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-base font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all w-full md:w-auto">
+                                <Link href={`/osago/step-2?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&drivers=${driversCount}`} className="flex items-center justify-center rounded-xl h-14 px-8 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-base font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all w-full md:w-auto">
                                     <span className="material-symbols-outlined mr-2">arrow_back</span>
                                     {t("buttons.back")}
                                 </Link>

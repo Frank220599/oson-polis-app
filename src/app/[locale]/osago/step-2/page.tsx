@@ -13,8 +13,10 @@ function OsagoStep2Content() {
     const router = useRouter();
     const plate = searchParams?.get("plate") || "";
 
-    // Handle tech passport param (combined)
-    const techPassport = searchParams?.get("techPassport") || searchParams?.get("license") || "";
+    // Handle tech passport params
+    const techPassportSeries = searchParams?.get("techPassportSeries") || searchParams?.get("licenseSeries") || "";
+    const techPassportNumber = searchParams?.get("techPassportNumber") || searchParams?.get("licenseNumber") || "";
+    const techPassport = searchParams?.get("techPassport") || searchParams?.get("license") || ""; // fallback
 
     const drivers = searchParams?.get("drivers") || "";
 
@@ -35,7 +37,7 @@ function OsagoStep2Content() {
         setErrors(newErrors);
 
         if (Object.keys(newErrors).length === 0) {
-            router.push(`/osago/step-3?plate=${plate}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passportSeries}${passportNumber}&phone=${encodeURIComponent(phoneNumber)}&drivers=${drivers}`);
+            router.push(`/osago/step-3?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passportSeries}${passportNumber}&phone=${encodeURIComponent(phoneNumber)}&drivers=${drivers}`);
         }
     };
 
@@ -213,8 +215,8 @@ function OsagoStep2Content() {
                             </div>
 
                             <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-4">
-                                <Link href={`/osago/step-1?plate=${plate}&techPassport=${techPassport}&drivers=${drivers}`} className="w-full md:w-auto px-10 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors order-2 md:order-1">
-                                    <span className="material-symbols-outlined text-[20px] mr-1">arrow_back</span>
+                                <Link href={`/osago/step-1?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&drivers=${drivers}`} className="flex items-center justify-center rounded-xl h-14 px-8 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-base font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all w-full md:w-auto">
+                                    <span className="material-symbols-outlined mr-2">arrow_back</span>
                                     {t("buttons.back")}
                                 </Link>
                                 <button
