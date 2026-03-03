@@ -1,26 +1,38 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useClientSearchParams } from "@/hooks/useClientSearchParams";
 
-function OsagoStep4Content() {
+export default function OsagoStep4Page() {
     const t = useTranslations("OsagoStep4");
-    const searchParams = useSearchParams();
+    const searchParams = useClientSearchParams();
     const router = useRouter();
     const [paymentMethod, setPaymentMethod] = useState<'payme' | 'click' | 'uzum'>('payme');
     const [isProcessing, setIsProcessing] = useState(false);
 
-    // Pass through previous step data to success and for display
-    const plate = searchParams?.get("plate") || "";
-    const techPassport = searchParams?.get("techPassport") || searchParams?.get("license") || "";
-    const pinfl = searchParams?.get("pinfl") || "";
-    const passport = searchParams?.get("passport") || "";
-    const phone = searchParams?.get("phone") || "";
-    const duration = searchParams?.get("duration") || "year";
-    const driversCount = searchParams?.get("driversCount") || "limited";
+    // Pass through previous step data — filled from URL on client mount
+    const [plate, setPlate] = useState("");
+    const [techPassport, setTechPassport] = useState("");
+    const [pinfl, setPinfl] = useState("");
+    const [passport, setPassport] = useState("");
+    const [phone, setPhone] = useState("");
+    const [duration, setDuration] = useState("year");
+    const [driversCount, setDriversCount] = useState("limited");
+
+    useEffect(() => {
+        if (!searchParams) return;
+        setPlate(searchParams.get("plate") || "");
+        setTechPassport(searchParams.get("techPassport") || searchParams.get("license") || "");
+        setPinfl(searchParams.get("pinfl") || "");
+        setPassport(searchParams.get("passport") || "");
+        setPhone(searchParams.get("phone") || "");
+        setDuration(searchParams.get("duration") || "year");
+        setDriversCount(searchParams.get("driversCount") || "limited");
+    }, [searchParams]);
 
     return (
         <>
@@ -185,10 +197,3 @@ function OsagoStep4Content() {
     );
 }
 
-export default function OsagoStep4Page() {
-    return (
-        <Suspense fallback={<div className="bg-[#f8fafc] dark:bg-[#0f172a] min-h-screen flex items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div></div>}>
-            <OsagoStep4Content />
-        </Suspense>
-    );
-}

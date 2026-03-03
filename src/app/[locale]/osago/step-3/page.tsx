@@ -1,34 +1,44 @@
 "use client";
 
-import { useState, Suspense, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useClientSearchParams } from "@/hooks/useClientSearchParams";
 
-function OsagoStep3Content() {
+export default function OsagoStep3Page() {
     const t = useTranslations("OsagoStep3");
-    const searchParams = useSearchParams();
     const router = useRouter();
+    const searchParams = useClientSearchParams();
 
-    // Pass through previous step data
-    const plate = searchParams?.get("plate") || "";
-    const techPassportSeries = searchParams?.get("techPassportSeries") || searchParams?.get("licenseSeries") || "";
-    const techPassportNumber = searchParams?.get("techPassportNumber") || searchParams?.get("licenseNumber") || "";
-    const techPassport = searchParams?.get("techPassport") || searchParams?.get("license") || ""; // fallback
-    const pinfl = searchParams?.get("pinfl") || "";
-    const passport = searchParams?.get("passport") || "";
-    const phone = searchParams?.get("phone") || "";
+    // Pass through previous step data — filled from URL on client mount
+    const [plate, setPlate] = useState("");
+    const [techPassportSeries, setTechPassportSeries] = useState("");
+    const [techPassportNumber, setTechPassportNumber] = useState("");
+    const [techPassport, setTechPassport] = useState("");
+    const [pinfl, setPinfl] = useState("");
+    const [passport, setPassport] = useState("");
+    const [phone, setPhone] = useState("");
     const [duration, setDuration] = useState<'year' | 'six_months'>('year');
-    const [driversCount, setDriversCount] = useState<'limited' | 'unlimited'>((searchParams?.get("driversCount") || searchParams?.get("drivers") || 'limited') as 'limited' | 'unlimited');
-
+    const [driversCount, setDriversCount] = useState<'limited' | 'unlimited'>('limited');
     const [extraDrivers, setExtraDrivers] = useState<number[]>([]);
     const [driversData, setDriversData] = useState<Record<number, { passportSeries: string; passportNumber: string; birthDate: string; relation: string }>>({});
     const [errors, setErrors] = useState<Record<number, { passportSeries?: string; passportNumber?: string; birthDate?: string }>>({});
 
-    // Prefetch step-4 immediately so navigation feels instant
+    // Read URL params on client mount (keeps page statically renderable)
     useEffect(() => {
+        if (!searchParams) return;
+        setPlate(searchParams.get("plate") || "");
+        setTechPassportSeries(searchParams.get("techPassportSeries") || searchParams.get("licenseSeries") || "");
+        setTechPassportNumber(searchParams.get("techPassportNumber") || searchParams.get("licenseNumber") || "");
+        setTechPassport(searchParams.get("techPassport") || searchParams.get("license") || "");
+        setPinfl(searchParams.get("pinfl") || "");
+        setPassport(searchParams.get("passport") || "");
+        setPhone(searchParams.get("phone") || "");
+        const dc = searchParams.get("driversCount") || searchParams.get("drivers") || 'limited';
+        setDriversCount(dc as 'limited' | 'unlimited');
         router.prefetch("/osago/step-4");
-    }, [router]);
+    }, [searchParams, router]);
 
     const addDriver = () => {
         if (extraDrivers.length < 3) {
@@ -417,13 +427,5 @@ function OsagoStep3Content() {
                 </div>
             </main>
         </>
-    );
-}
-
-export default function OsagoStep3Page() {
-    return (
-        <Suspense fallback={<div className="bg-[#f8fafc] dark:bg-[#0f172a] min-h-screen flex items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div></div>}>
-            <OsagoStep3Content />
-        </Suspense>
     );
 }

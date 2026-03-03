@@ -1,40 +1,42 @@
 "use client";
 
-import { useState, Suspense, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useClientSearchParams } from "@/hooks/useClientSearchParams";
 
-function OsagoStep1Content() {
+export default function OsagoStep1Page() {
     const t = useTranslations("OsagoStep1");
-    const searchParams = useSearchParams();
     const router = useRouter();
+    const searchParams = useClientSearchParams();
 
-    const [plate, setPlate] = useState(searchParams?.get("plate") || "");
-
-    // Handle combined techPassport or license params, or legacy separated ones
-    const paramTechPassport = searchParams?.get("techPassport") || searchParams?.get("license") || "";
-    const paramSeries = searchParams?.get("techPassportSeries") || searchParams?.get("licenseSeries") || "";
-    const paramNumber = searchParams?.get("techPassportNumber") || searchParams?.get("licenseNumber") || "";
-
-    const [techPassportSeries, setTechPassportSeries] = useState(paramSeries || paramTechPassport.slice(0, 3) || "");
-    const [techPassportNumber, setTechPassportNumber] = useState(paramNumber || paramTechPassport.slice(3) || "");
-
+    const [plate, setPlate] = useState("");
+    const [techPassportSeries, setTechPassportSeries] = useState("");
+    const [techPassportNumber, setTechPassportNumber] = useState("");
     const [errors, setErrors] = useState<{ plate?: string; techPassport?: string }>({});
-    const drivers = searchParams?.get("drivers") || "";
+    const [drivers, setDrivers] = useState("");
 
-    // Prefetch step-2 immediately so navigation feels instant
+    // Read URL params on client mount (keeps page statically renderable)
     useEffect(() => {
+        if (!searchParams) return;
+        const paramPlate = searchParams.get("plate") || "";
+        const paramTechPassport = searchParams.get("techPassport") || searchParams.get("license") || "";
+        const paramSeries = searchParams.get("techPassportSeries") || searchParams.get("licenseSeries") || "";
+        const paramNumber = searchParams.get("techPassportNumber") || searchParams.get("licenseNumber") || "";
+        setPlate(paramPlate);
+        setTechPassportSeries(paramSeries || paramTechPassport.slice(0, 3));
+        setTechPassportNumber(paramNumber || paramTechPassport.slice(3));
+        setDrivers(searchParams.get("drivers") || "");
+        // Prefetch next step
         router.prefetch("/osago/step-2");
-    }, [router]);
+    }, [searchParams, router]);
 
     const validateAndProceed = () => {
         const newErrors: { plate?: string; techPassport?: string } = {};
         if (!plate.trim()) newErrors.plate = t("form.errors.plate");
         if (!techPassportSeries.trim() || !techPassportNumber.trim()) newErrors.techPassport = t("form.errors.techPassport");
-
         setErrors(newErrors);
-
         if (Object.keys(newErrors).length === 0) {
             router.push(`/osago/step-2?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&drivers=${drivers}`);
         }
@@ -114,7 +116,6 @@ function OsagoStep1Content() {
                                                     className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-3 transition-all text-slate-900 dark:text-white h-14 font-bold uppercase tracking-widest text-center placeholder:text-slate-400 focus:ring-0 ${errors.techPassport ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
                                                     placeholder="AAF" type="text"
                                                 />
-
                                             </div>
                                             <div className="relative flex-grow">
                                                 <input
@@ -195,13 +196,5 @@ function OsagoStep1Content() {
                 </div>
             </main>
         </>
-    );
-}
-
-export default function OsagoStep1Page() {
-    return (
-        <Suspense fallback={<div className="bg-[#f8fafc] dark:bg-[#0f172a] min-h-screen flex items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div></div>}>
-            <OsagoStep1Content />
-        </Suspense>
     );
 }

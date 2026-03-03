@@ -1,22 +1,21 @@
 "use client";
 
-import { useState, Suspense, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useClientSearchParams } from "@/hooks/useClientSearchParams";
 
-function OsagoStep2Content() {
+export default function OsagoStep2Page() {
     const t = useTranslations("OsagoStep2");
-    const searchParams = useSearchParams();
     const router = useRouter();
-    const plate = searchParams?.get("plate") || "";
+    const searchParams = useClientSearchParams();
 
-    // Handle tech passport params
-    const techPassportSeries = searchParams?.get("techPassportSeries") || searchParams?.get("licenseSeries") || "";
-    const techPassportNumber = searchParams?.get("techPassportNumber") || searchParams?.get("licenseNumber") || "";
-    const techPassport = searchParams?.get("techPassport") || searchParams?.get("license") || ""; // fallback
-
-    const drivers = searchParams?.get("drivers") || "";
+    const [plate, setPlate] = useState("");
+    const [techPassportSeries, setTechPassportSeries] = useState("");
+    const [techPassportNumber, setTechPassportNumber] = useState("");
+    const [techPassport, setTechPassport] = useState("");
+    const [drivers, setDrivers] = useState("");
 
     // Step 2 specific state
     const [pinfl, setPinfl] = useState("");
@@ -25,10 +24,16 @@ function OsagoStep2Content() {
     const [phoneNumber, setPhoneNumber] = useState("+998 ");
     const [errors, setErrors] = useState<{ pinfl?: string; passportSeries?: string; passportNumber?: string; phone?: string }>({});
 
-    // Prefetch step-3 immediately so navigation feels instant
+    // Read URL params on client mount (keeps page statically renderable)
     useEffect(() => {
+        if (!searchParams) return;
+        setPlate(searchParams.get("plate") || "");
+        setTechPassportSeries(searchParams.get("techPassportSeries") || searchParams.get("licenseSeries") || "");
+        setTechPassportNumber(searchParams.get("techPassportNumber") || searchParams.get("licenseNumber") || "");
+        setTechPassport(searchParams.get("techPassport") || searchParams.get("license") || "");
+        setDrivers(searchParams.get("drivers") || "");
         router.prefetch("/osago/step-3");
-    }, [router]);
+    }, [searchParams, router]);
 
     const validateAndProceed = () => {
         const newErrors: typeof errors = {};
@@ -268,13 +273,5 @@ function OsagoStep2Content() {
                 </div>
             </main>
         </>
-    );
-}
-
-export default function OsagoStep2Page() {
-    return (
-        <Suspense fallback={<div className="bg-[#f8fafc] dark:bg-[#0f172a] min-h-screen flex items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div></div>}>
-            <OsagoStep2Content />
-        </Suspense>
     );
 }
