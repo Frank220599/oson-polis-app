@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import { Link } from "@/i18n/routing";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -26,6 +26,11 @@ function OsagoStep3Content() {
     const [extraDrivers, setExtraDrivers] = useState<number[]>([]);
     const [driversData, setDriversData] = useState<Record<number, { passportSeries: string; passportNumber: string; birthDate: string; relation: string }>>({});
     const [errors, setErrors] = useState<Record<number, { passportSeries?: string; passportNumber?: string; birthDate?: string }>>({});
+
+    // Prefetch step-4 immediately so navigation feels instant
+    useEffect(() => {
+        router.prefetch("/osago/step-4");
+    }, [router]);
 
     const addDriver = () => {
         if (extraDrivers.length < 3) {

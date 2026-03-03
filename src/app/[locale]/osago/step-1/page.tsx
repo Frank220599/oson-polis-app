@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import { Link } from "@/i18n/routing";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -24,6 +24,11 @@ function OsagoStep1Content() {
 
     const [errors, setErrors] = useState<{ plate?: string; techPassport?: string }>({});
     const drivers = searchParams?.get("drivers") || "";
+
+    // Prefetch step-2 immediately so navigation feels instant
+    useEffect(() => {
+        router.prefetch("/osago/step-2");
+    }, [router]);
 
     const validateAndProceed = () => {
         const newErrors: { plate?: string; techPassport?: string } = {};

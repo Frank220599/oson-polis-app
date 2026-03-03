@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import { Link } from "@/i18n/routing";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -26,6 +26,11 @@ function OsagoStep2Content() {
     const [passportNumber, setPassportNumber] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("+998 ");
     const [errors, setErrors] = useState<{ pinfl?: string; passportSeries?: string; passportNumber?: string; phone?: string }>({});
+
+    // Prefetch step-3 immediately so navigation feels instant
+    useEffect(() => {
+        router.prefetch("/osago/step-3");
+    }, [router]);
 
     const validateAndProceed = () => {
         const newErrors: typeof errors = {};
