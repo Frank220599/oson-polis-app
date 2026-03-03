@@ -219,6 +219,7 @@ export default function OsagoStep3Page() {
                                         <div className="divide-y divide-slate-100 dark:divide-slate-800">
                                             {[
                                                 { ok: true, text: t("driversCount.features.damage80m") },
+                                                { ok: false, text: t("driversCount.features.allDrivers") },
                                                 { ok: false, text: t("driversCount.features.passportRequired") },
                                                 { ok: false, text: t("driversCount.features.peregonWithDoc") },
                                             ].map((f, i) => (
