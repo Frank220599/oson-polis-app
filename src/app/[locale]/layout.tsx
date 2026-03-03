@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Manrope } from "next/font/google";
@@ -46,6 +46,10 @@ export const viewport: Viewport = {
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { NavigationProgress } from "@/components/NavigationProgress";
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export default async function RootLayout({
   children,
   params
@@ -54,6 +58,7 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
+  setRequestLocale(locale);
 
   if (!routing.locales.includes(locale as "ru" | "uz" | "en")) {
     notFound();
