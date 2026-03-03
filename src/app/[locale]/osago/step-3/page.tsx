@@ -2,8 +2,8 @@
 
 import { useState, Suspense } from "react";
 import { Link } from "@/i18n/routing";
-import Image from "next/image";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -14,9 +14,7 @@ function OsagoStep3Content() {
 
     // Pass through previous step data
     const plate = searchParams?.get("plate") || "";
-    const techPassportSeries = searchParams?.get("techPassportSeries") || "";
-    const techPassportNumber = searchParams?.get("techPassportNumber") || "";
-    const techPassport = searchParams?.get("techPassport") || ""; // fallback
+    const techPassport = searchParams?.get("techPassport") || searchParams?.get("license") || "";
     const pinfl = searchParams?.get("pinfl") || "";
     const passport = searchParams?.get("passport") || "";
     const phone = searchParams?.get("phone") || "";
@@ -85,7 +83,7 @@ function OsagoStep3Content() {
         setErrors(newErrors);
 
         if (!hasErrors) {
-            router.push(`/osago/step-4?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passport}&phone=${encodeURIComponent(phone)}&duration=${duration}&driversCount=${driversCount}`);
+            router.push(`/osago/step-4?plate=${plate}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passport}&phone=${encodeURIComponent(phone)}&duration=${duration}&driversCount=${driversCount}`);
         }
     };
 
@@ -312,6 +310,7 @@ function OsagoStep3Content() {
                                                             {driversData[id]?.passportNumber && (
                                                                 <button
                                                                     type="button"
+                                                                    aria-label="Clear field"
                                                                     onClick={() => updateDriverData(id, 'passportNumber', "")}
                                                                     className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
                                                                 >
@@ -364,7 +363,7 @@ function OsagoStep3Content() {
                             </div>
 
                             <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-4">
-                                <Link href={`/osago/step-2?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&drivers=${driversCount}`} className="flex items-center justify-center rounded-xl h-14 px-8 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-base font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all w-full md:w-auto">
+                                <Link href={`/osago/step-2?plate=${plate}&techPassport=${techPassport}&drivers=${driversCount}`} className="flex items-center justify-center rounded-xl h-14 px-8 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-base font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all w-full md:w-auto">
                                     <span className="material-symbols-outlined mr-2">arrow_back</span>
                                     {t("buttons.back")}
                                 </Link>
@@ -421,22 +420,7 @@ function OsagoStep3Content() {
                 </div>
             </main>
 
-            <footer className="mt-auto py-8 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="flex items-center gap-3">
-                        <Link href="/" className="flex items-center gap-2">
-                            <Image src="/logo-blue.png" alt="OsonPolis" width={120} height={26} className="dark:hidden block h-6 w-auto" />
-                            <Image src="/logo-white.png" alt="OsonPolis" width={120} height={26} className="hidden dark:block h-6 w-auto" />
-                        </Link>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 ml-4">{t("footer.copyright")}</p>
-                    </div>
-                    <div className="flex gap-6">
-                        <Link className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-primary transition-colors uppercase tracking-wider" href="/privacy">{t("footer.privacy")}</Link>
-                        <Link className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-primary transition-colors uppercase tracking-wider" href="/terms">{t("footer.terms")}</Link>
-                        <Link className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-primary transition-colors uppercase tracking-wider" href="/contacts">{t("footer.contacts")}</Link>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

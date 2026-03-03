@@ -16,27 +16,17 @@
     },
     "Footer": {
         "slogan": "Упрощаем страхование для каждого водителя в Узбекистане.",
+        "copyrightText": "© 2024 OsonPolis. Все права защищены.",
+        "privacy": "Политика конфиденциальности",
+        "terms": "Условия использования",
+        "contacts": "Контакты",
         "company": {
             "title": "Компания",
             "about": "О нас",
             "team": "Наша команда",
             "career": "Карьера",
             "news": "Новости"
-        },
-        "services": {
-            "title": "Услуги",
-            "osagoOnline": "ОСАГО Онлайн",
-            "kaskoProtection": "КАСКО Защита",
-            "claims": "Страховые случаи",
-            "partners": "Партнерам"
-        },
-        "support": {
-            "title": "Поддержка",
-            "help": "Помощь",
-            "contacts": "Контакты",
-            "legalInfo": "Правовая информация"
-        },
-        "copyright": "© 2024 OsonPolis. Лицензировано и регулируется. Все права защищены."
+        }
     },
     "Home": {
         "partnerBadge": "Официальный страховой партнер",
@@ -50,8 +40,8 @@
             "subtitle": "Получите лучшие тарифы от ведущих страховщиков мгновенно",
             "plateLabel": "Госномер автомобиля",
             "platePlaceholder": "01 A 123 AA",
-            "licenseLabel": "Водительское удостоверение",
-            "licensePlaceholder": "AA 1234567",
+            "licenseLabel": "Техпаспорт",
+            "licensePlaceholder": "AAF 1234567",
             "driversLabel": "Количество водителей",
             "driversPlaceholder": "Выберите количество",
             "driversLimited": "До 5 человек",
@@ -304,7 +294,7 @@
             "step1Title": "Идентификация транспортного средства",
             "govNumber": "Государственный номер",
             "govNumberPlaceholder": "01 A 123 AA",
-            "techPassport": "Серия и номер техпаспорта",
+            "techPassport": "Техпаспорт",
             "techPassportPlaceholder": "AAF 1234567",
             "errors": {
                 "plate": "Введите государственный номер",

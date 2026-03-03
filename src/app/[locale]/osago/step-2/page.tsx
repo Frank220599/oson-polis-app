@@ -2,8 +2,8 @@
 
 import { useState, Suspense } from "react";
 import { Link } from "@/i18n/routing";
-import Image from "next/image";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -13,10 +13,8 @@ function OsagoStep2Content() {
     const router = useRouter();
     const plate = searchParams?.get("plate") || "";
 
-    // Handle separated or legacy tech passport params
-    const techPassportSeries = searchParams?.get("techPassportSeries") || "";
-    const techPassportNumber = searchParams?.get("techPassportNumber") || "";
-    const techPassport = searchParams?.get("techPassport") || ""; // fallback
+    // Handle tech passport param (combined)
+    const techPassport = searchParams?.get("techPassport") || searchParams?.get("license") || "";
 
     const drivers = searchParams?.get("drivers") || "";
 
@@ -29,15 +27,15 @@ function OsagoStep2Content() {
 
     const validateAndProceed = () => {
         const newErrors: typeof errors = {};
-        if (pinfl.length !== 14) newErrors.pinfl = t("form.errors.pinfl");
+        if (pinfl.replace(/\s/g, '').length !== 14) newErrors.pinfl = t("form.errors.pinfl");
         if (passportSeries.length !== 2) newErrors.passportSeries = t("form.errors.passportSeries");
         if (passportNumber.length !== 7) newErrors.passportNumber = t("form.errors.passportNumber");
-        if (phoneNumber.length < 13) newErrors.phone = t("form.errors.phone");
+        if (phoneNumber.length < 19) newErrors.phone = t("form.errors.phone");
 
         setErrors(newErrors);
 
         if (Object.keys(newErrors).length === 0) {
-            router.push(`/osago/step-3?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passportSeries}${passportNumber}&phone=${encodeURIComponent(phoneNumber)}&drivers=${drivers}`);
+            router.push(`/osago/step-3?plate=${plate}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passportSeries}${passportNumber}&phone=${encodeURIComponent(phoneNumber)}&drivers=${drivers}`);
         }
     };
 
@@ -89,15 +87,25 @@ function OsagoStep2Content() {
                                         <div className="relative">
                                             <input
                                                 value={pinfl}
-                                                onChange={(e) => { setPinfl(e.target.value.replace(/\D/g, '').slice(0, 14)); setErrors(prev => ({ ...prev, pinfl: undefined })); }}
+                                                onChange={(e) => {
+                                                    const raw = e.target.value.replace(/\D/g, '').slice(0, 14);
+                                                    // Format: XXXX XXXX XXXX XX
+                                                    let formatted = raw;
+                                                    if (raw.length > 4) formatted = raw.slice(0, 4) + ' ' + raw.slice(4);
+                                                    if (raw.length > 8) formatted = formatted.slice(0, 9) + ' ' + formatted.slice(9);
+                                                    if (raw.length > 12) formatted = formatted.slice(0, 14) + ' ' + formatted.slice(14);
+
+                                                    setPinfl(formatted);
+                                                    setErrors(prev => ({ ...prev, pinfl: undefined }));
+                                                }}
                                                 className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-4 pr-10 transition-all text-slate-900 dark:text-white h-14 font-medium placeholder:text-slate-400 focus:ring-0 ${errors.pinfl ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
-                                                maxLength={14}
                                                 placeholder={t("form.pinflPlaceholder")}
                                                 type="text"
                                             />
                                             {pinfl && (
                                                 <button
                                                     type="button"
+                                                    aria-label="Clear field"
                                                     onClick={() => { setPinfl(""); setErrors(prev => ({ ...prev, pinfl: undefined })); }}
                                                     className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
                                                 >
@@ -133,6 +141,7 @@ function OsagoStep2Content() {
                                                     {passportNumber && (
                                                         <button
                                                             type="button"
+                                                            aria-label="Clear field"
                                                             onClick={() => { setPassportNumber(""); setErrors(prev => ({ ...prev, passportNumber: undefined })); }}
                                                             className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
                                                         >
@@ -153,22 +162,43 @@ function OsagoStep2Content() {
                                                 <input
                                                     value={phoneNumber}
                                                     onChange={(e) => {
-                                                        const val = e.target.value;
-                                                        if (val.startsWith('+998 ')) {
-                                                            setPhoneNumber(val);
-                                                        } else if (val === '+998') {
-                                                            setPhoneNumber('+998 ');
+                                                        let val = e.target.value.replace(/\D/g, "");
+
+                                                        // Always keep +998
+                                                        if (!val.startsWith("998")) {
+                                                            val = "998" + val;
                                                         }
+
+                                                        // Limit to 12 digits (998 + 9 digits)
+                                                        val = val.slice(0, 12);
+
+                                                        // Format: +998 (XX) XXX XX XX
+                                                        let formatted = "+998";
+                                                        if (val.length > 3) {
+                                                            formatted += " (" + val.slice(3, 5);
+                                                        }
+                                                        if (val.length > 5) {
+                                                            formatted += ") " + val.slice(5, 8);
+                                                        }
+                                                        if (val.length > 8) {
+                                                            formatted += " " + val.slice(8, 10);
+                                                        }
+                                                        if (val.length > 10) {
+                                                            formatted += " " + val.slice(10, 12);
+                                                        }
+
+                                                        setPhoneNumber(formatted);
                                                         setErrors(prev => ({ ...prev, phone: undefined }));
                                                     }}
                                                     className={`w-full bg-slate-50 dark:bg-slate-800 border-2 rounded-xl px-4 pl-12 pr-10 transition-all text-slate-900 dark:text-white h-14 font-medium placeholder:text-slate-400 focus:ring-0 ${errors.phone ? 'border-red-400 dark:border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'}`}
                                                     type="tel"
-                                                    placeholder="+998 90 123 45 67"
+                                                    placeholder="+998 (90) 123 45 67"
                                                 />
                                                 <span className={`material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[20px] pointer-events-none transition-colors ${errors.phone ? 'text-red-400' : 'text-slate-400'}`}>phone</span>
                                                 {phoneNumber.length > 5 && (
                                                     <button
                                                         type="button"
+                                                        aria-label="Clear field"
                                                         onClick={() => { setPhoneNumber("+998 "); setErrors(prev => ({ ...prev, phone: undefined })); }}
                                                         className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
                                                     >
@@ -183,7 +213,7 @@ function OsagoStep2Content() {
                             </div>
 
                             <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-4">
-                                <Link href={`/osago/step-1?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&drivers=${drivers}`} className="w-full md:w-auto px-10 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors order-2 md:order-1">
+                                <Link href={`/osago/step-1?plate=${plate}&techPassport=${techPassport}&drivers=${drivers}`} className="w-full md:w-auto px-10 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors order-2 md:order-1">
                                     <span className="material-symbols-outlined text-[20px] mr-1">arrow_back</span>
                                     {t("buttons.back")}
                                 </Link>
@@ -235,22 +265,7 @@ function OsagoStep2Content() {
                 </div>
             </main>
 
-            <footer className="mt-auto py-8 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="flex items-center gap-3">
-                        <Link href="/" className="flex items-center gap-2">
-                            <Image src="/logo-blue.png" alt="OsonPolis" width={120} height={26} className="dark:hidden block h-6 w-auto" />
-                            <Image src="/logo-white.png" alt="OsonPolis" width={120} height={26} className="hidden dark:block h-6 w-auto" />
-                        </Link>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 ml-4">{t("footer.copyright")}</p>
-                    </div>
-                    <div className="flex gap-6">
-                        <Link className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-primary transition-colors uppercase tracking-wider" href="/privacy">{t("footer.privacy")}</Link>
-                        <Link className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-primary transition-colors uppercase tracking-wider" href="/terms">{t("footer.terms")}</Link>
-                        <Link className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-primary transition-colors uppercase tracking-wider" href="/contacts">{t("footer.contacts")}</Link>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

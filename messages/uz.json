@@ -50,8 +50,8 @@
             "subtitle": "Yetakchi sug'urtachilardan eng yaxshi tariflarni darhol oling",
             "plateLabel": "Avtomobil davlat raqami",
             "platePlaceholder": "01 A 123 AA",
-            "licenseLabel": "Haydovchilik guvohnomasi",
-            "licensePlaceholder": "AA 1234567",
+            "licenseLabel": "Texnik pasport",
+            "licensePlaceholder": "AAF 1234567",
             "driversLabel": "Haydovchilar soni",
             "driversPlaceholder": "Miqdorni tanlang",
             "driversLimited": "5 kishigacha",
@@ -305,11 +305,11 @@
             "step1Title": "Transport vositasi identifikatsiyasi",
             "govNumber": "Davlat raqami",
             "govNumberPlaceholder": "01 A 123 AA",
-            "techPassport": "Texpasport seriyasi va raqami",
+            "techPassport": "Texnik pasport",
             "techPassportPlaceholder": "AAF 1234567",
             "errors": {
                 "plate": "Davlat raqamini kiriting",
-                "techPassport": "Texpasport ma'lumotlarini kiriting"
+                "techPassport": "Texnik pasport ma'lumotlarini kiriting"
             }
         },
         "buttons": {
@@ -350,7 +350,7 @@
             "payment": "To'lov"
         },
         "form": {
-            "stepTitle": "Shaxsiy ma'lumotlar",
+            "stepTitle": "Avtomobil egasining ma'lumotlari",
             "pinfl": "JSHSHIR (PINFL)",
             "pinflPlaceholder": "JSHSHIR ni kiriting (14 ta raqam)",
             "passport": "Pasport seriyasi va raqami",

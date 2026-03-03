@@ -1,11 +1,10 @@
-import { Link } from "@/i18n/routing";
-import Image from "next/image";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 
 export default function SuccessPage() {
     const t = useTranslations("Success");
-    const tFooter = useTranslations("Footer");
     return (
         <div className="bg-background-light dark:bg-background-dark min-h-screen flex flex-col text-slate-900 dark:text-slate-100 transition-colors duration-200">
             <div className="relative flex flex-col w-full grow overflow-x-hidden">
@@ -82,42 +81,7 @@ export default function SuccessPage() {
                         </div>
                     </div>
                 </main>
-                <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 px-10 mt-auto">
-                    <div className="max-w-[960px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-                        <div className="flex flex-col gap-4">
-                            <div className="flex items-center gap-2 text-slate-900 dark:text-white bg-slate-900 dark:bg-slate-800 w-fit p-2 rounded-xl">
-                                <Image src="/logo-white.png" alt="OsonPolis" width={120} height={26} className="h-5 w-auto" />
-                            </div>
-                            <p className="text-sm text-slate-500 dark:text-slate-400">
-                                {tFooter("subtitle")}
-                            </p>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                            <h4 className="font-bold text-slate-900 dark:text-white mb-2">{tFooter("company")}</h4>
-                            <Link className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="/about">{tFooter("about")}</Link>
-                            <Link className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="/news">{tFooter("news")}</Link>
-                            <Link className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="/career">{tFooter("careers")}</Link>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                            <h4 className="font-bold text-slate-900 dark:text-white mb-2">{tFooter("support")}</h4>
-                            <Link className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="/support">{tFooter("helpCenter")}</Link>
-                            <Link className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="/terms">{tFooter("termsOfService")}</Link>
-                            <Link className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="/privacy">{tFooter("privacyPolicy")}</Link>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                            <h4 className="font-bold text-slate-900 dark:text-white mb-2">{tFooter("contacts")}</h4>
-                            <div className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors cursor-pointer">+998 71 200 00 00</div>
-                            <div className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors cursor-pointer">info@osonpolis.uz</div>
-                            <div className="flex gap-4 mt-2">
-                                <a className="text-slate-400 hover:text-primary transition-colors" href="#"><span className="material-symbols-outlined text-xl">thumb_up</span></a>
-                                <a className="text-slate-400 hover:text-primary transition-colors" href="#"><span className="material-symbols-outlined text-xl">share</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="max-w-[960px] mx-auto mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
-                        <p className="text-xs text-slate-400">{tFooter("copyright")}</p>
-                    </div>
-                </footer>
+                <Footer />
             </div>
         </div>
     );

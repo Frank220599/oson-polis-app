@@ -50,8 +50,8 @@
             "subtitle": "Get the best rates from leading insurers instantly",
             "plateLabel": "License Plate",
             "platePlaceholder": "01 A 123 AA",
-            "licenseLabel": "Driver's License",
-            "licensePlaceholder": "AA 1234567",
+            "licenseLabel": "Technical Passport",
+            "licensePlaceholder": "AAF 1234567",
             "driversLabel": "Number of Drivers",
             "driversPlaceholder": "Select number",
             "driversLimited": "Up to 5 people",
@@ -304,11 +304,11 @@
             "step1Title": "Vehicle Identification",
             "govNumber": "License Plate",
             "govNumberPlaceholder": "01 A 123 AA",
-            "techPassport": "Tech Passport Series and Number",
+            "techPassport": "Technical Passport",
             "techPassportPlaceholder": "AAF 1234567",
             "errors": {
                 "plate": "Please enter license plate",
-                "techPassport": "Please enter tech passport details"
+                "techPassport": "Please enter technical passport details"
             }
         },
         "buttons": {
