@@ -2,8 +2,6 @@
 
 import { useState, Suspense, useEffect } from "react";
 import { Link } from "@/i18n/routing";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -43,9 +41,7 @@ function OsagoStep1Content() {
     };
 
     return (
-        <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col transition-colors duration-200">
-            <Header />
-
+        <>
             {/* Main Content */}
             <main className="flex-grow flex flex-col items-center w-full px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
                 <div className="w-full max-w-7xl">
@@ -198,10 +194,7 @@ function OsagoStep1Content() {
                     </div>
                 </div>
             </main>
-
-            {/* Footer */}
-            <Footer />
-        </div>
+        </>
     );
 }
 

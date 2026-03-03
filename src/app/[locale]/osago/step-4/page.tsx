@@ -1,8 +1,6 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
@@ -25,9 +23,7 @@ function OsagoStep4Content() {
     const driversCount = searchParams?.get("driversCount") || "limited";
 
     return (
-        <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col transition-colors duration-200">
-            <Header />
-
+        <>
             <main className="flex-grow flex flex-col items-center w-full px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
                 <div className="w-full max-w-7xl">
                     <div className="mb-8 lg:mb-12">
@@ -185,9 +181,7 @@ function OsagoStep4Content() {
                     </div>
                 </div>
             </main>
-
-            <Footer />
-        </div>
+        </>
     );
 }
 
