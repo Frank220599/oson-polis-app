@@ -36,8 +36,8 @@ export default function Home() {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
           <div
             className="rounded-2xl overflow-hidden relative min-h-[520px] flex flex-col justify-end p-8 sm:p-12 md:p-16 bg-cover bg-center bg-no-repeat group shadow-2xl"
-            data-alt="Modern car driving on a highway at sunset"
-            style={{ backgroundImage: 'linear-gradient(to right, rgba(16, 25, 34, 0.8) 0%, rgba(29, 119, 255, 0.2) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCyZfzcPbIorEfd4qc7piRwRd_N0ch8iCYQ9NHpmyTHVPHjQ9P5Wgg1yvXTxquYtKQBuP8wzwUcZ1hBJvQAT5xjvVPU8MomsIyZDOczQCu7K6fPMPOqaFcCI8SHmEoR5tE1pdAAKDxaKwK7mf0jeMyJaV6wf10pAF-hm0KV6Rbr2d-UhuI3WG1vi68gbOmUCxI-HEQlRsWnv_fHnSLAvQg1ILsata58-0kLYgZ_T59gPThOP2Hir5535WOjcfDLhm4z416XnLkV5Wk")' }}>
+            data-alt="Chevrolet Malibu driving in Tashkent, Uzbekistan"
+            style={{ backgroundImage: 'linear-gradient(to right, rgba(16, 25, 34, 0.8) 0%, rgba(29, 119, 255, 0.2) 100%), url("/malibu-banner.png")' }}>
             <div className="relative z-10 max-w-3xl flex flex-col gap-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 w-fit">
                 <span className="material-symbols-outlined text-green-400 text-sm">verified_user</span>
