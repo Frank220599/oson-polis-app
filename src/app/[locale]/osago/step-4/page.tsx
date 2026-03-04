@@ -63,8 +63,8 @@ export default function OsagoStep4Page() {
         if (driversDataParam) {
             try {
                 setDriversData(JSON.parse(decodeURIComponent(driversDataParam)));
-            } catch (e) {
-                console.error("Failed to parse drivers data", e);
+            } catch {
+                // Ignore parse errors silently
             }
         }
     }, [searchParams]);
@@ -129,7 +129,6 @@ export default function OsagoStep4Page() {
                     router.push('/success'); // Fallback if no URL
                 }
             } else {
-                console.error("Save Policy Error:", data);
                 // Sandbox currently returns 502 or custom error messages, handle this gracefully in UI
                 const errorMessage = data?.message || t("checkout.errorTemporary") || 'Test environment is currently offline. Your data is valid, but we cannot create the policy right now.';
                 setCheckoutError(errorMessage);
@@ -137,8 +136,7 @@ export default function OsagoStep4Page() {
                 setIsProcessing(false);
             }
 
-        } catch (error) {
-            console.error(error);
+        } catch {
             setCheckoutError('Unexpected network error occurred. Please try again.');
             setShowErrorModal(true);
             setIsProcessing(false);

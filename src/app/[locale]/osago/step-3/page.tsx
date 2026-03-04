@@ -49,7 +49,7 @@ export default function OsagoStep3Page() {
                 const parsed = JSON.parse(decodeURIComponent(driversDataParam));
                 if (Array.isArray(parsed) && parsed.length > 0) {
                     const newExtraDrivers: number[] = [];
-                    const newDriversData: Record<number, any> = {};
+                    const newDriversData: Record<number, { pinfl: string; passportSeries: string; passportNumber: string; birthDate: string; relation: string }> = {};
                     parsed.forEach((d, i) => {
                         const id = Date.now() + i;
                         newExtraDrivers.push(id);
@@ -58,8 +58,8 @@ export default function OsagoStep3Page() {
                     setExtraDrivers(newExtraDrivers);
                     setDriversData(newDriversData);
                 }
-            } catch (e) {
-                console.error("Failed to parse drivers data", e);
+            } catch {
+                // Ignore parse errors securely
             }
         }
 
@@ -102,13 +102,11 @@ export default function OsagoStep3Page() {
                 if (data?.result && data?.response?.amount_uzs) {
                     setAmount(data.response.amount_uzs);
                 } else {
-                    console.error('API Error:', data);
                     setCalcError('Failed to calculate exact amount (Using Sandbox estimate)');
                     // Fallback amount for display so user is not stuck if Sandbox is down 
                     setAmount(56000);
                 }
-            } catch (error) {
-                console.error('Fetch err:', error);
+            } catch {
                 setCalcError('Failed to calculate amount');
                 setAmount(56000); // Fallback
             } finally {
@@ -119,7 +117,7 @@ export default function OsagoStep3Page() {
         // Debounce slightly to wait for state to settle
         const timer = setTimeout(fetchCalculation, 500);
         return () => clearTimeout(timer);
-    }, [duration, driversCount, plate, techPassportSeries, techPassportNumber]);
+    }, [duration, driversCount, plate, techPassportSeries, techPassportNumber, pinfl, driversData]);
 
     const addDriver = () => {
         if (extraDrivers.length < 3) {
