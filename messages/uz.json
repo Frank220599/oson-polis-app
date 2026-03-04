@@ -536,6 +536,7 @@
             }
         },
         "driversCount": {
+            "notAvailableRegion": "Toshkent uchun mavjud emas (01/10)",
             "limited": {
                 "title": "5 kishigacha"
             },

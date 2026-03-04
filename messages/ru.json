@@ -521,6 +521,7 @@
             }
         },
         "driversCount": {
+            "notAvailableRegion": "Недоступно для Ташкента (01/10)",
             "limited": {
                 "title": "До 5 человек"
             },

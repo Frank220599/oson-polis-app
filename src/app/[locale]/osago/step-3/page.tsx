@@ -40,8 +40,11 @@ export default function OsagoStep3Page() {
         setPinfl(searchParams.get("pinfl") || "");
         setPassport(searchParams.get("passport") || "");
         setPhone(searchParams.get("phone") || "");
+
+        const plateParam = searchParams.get("plate") || "";
+        const isTashkentPlateParam = plateParam.startsWith('01') || plateParam.startsWith('10');
         const dc = searchParams.get("driversCount") || searchParams.get("drivers") || 'limited';
-        setDriversCount(dc as 'limited' | 'unlimited');
+        setDriversCount(isTashkentPlateParam ? 'unlimited' : (dc as 'limited' | 'unlimited'));
 
         const driversDataParam = searchParams.get("driversData");
         if (driversDataParam) {
@@ -186,6 +189,8 @@ export default function OsagoStep3Page() {
         router.push(`/osago/step-4?plate=${plate}&techPassportSeries=${techPassportSeries}&techPassportNumber=${techPassportNumber}&techPassport=${techPassport}&pinfl=${pinfl}&passport=${passport}&phone=${encodeURIComponent(phone)}&duration=${duration}&driversCount=${driversCount}&amount=${amount}&driversData=${serializedDrivers}`);
     };
 
+    const isTashkentPlate = plate.startsWith('01') || plate.startsWith('10');
+
     return (
         <>
             <main className="flex-grow flex flex-col items-center w-full px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
@@ -264,8 +269,12 @@ export default function OsagoStep3Page() {
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div
-                                        onClick={() => setDriversCount('limited')}
-                                        className={`cursor-pointer border-2 transition-all p-4 flex items-center gap-4 rounded-xl relative ${driversCount === 'limited' ? 'border-primary bg-primary/5 ring-1 ring-primary/20' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-200 dark:hover:border-slate-700'}`}
+                                        onClick={() => {
+                                            if (!isTashkentPlate) setDriversCount('limited');
+                                        }}
+                                        className={`border-2 transition-all p-4 flex items-center gap-4 rounded-xl relative ${isTashkentPlate ? 'opacity-50 cursor-not-allowed bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-800' :
+                                            driversCount === 'limited' ? 'cursor-pointer border-primary bg-primary/5 ring-1 ring-primary/20' : 'cursor-pointer border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-200 dark:hover:border-slate-700'
+                                            }`}
                                     >
                                         <div className={`p-2 rounded-lg shrink-0 ${driversCount === 'limited' ? 'bg-primary/10 text-primary' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
                                             <span className="material-symbols-outlined">group</span>
@@ -273,6 +282,9 @@ export default function OsagoStep3Page() {
                                         <div className="flex-grow">
                                             <h4 className="font-bold text-slate-900 dark:text-white text-base leading-tight">{t("driversCount.limited.title")}</h4>
                                             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{t("driversCount.limited.desc")}</p>
+                                            {isTashkentPlate && (
+                                                <p className="text-[10px] text-amber-500 font-bold mt-1 line-clamp-1">{t("driversCount.notAvailableRegion")}</p>
+                                            )}
                                         </div>
                                         <div className={`shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${driversCount === 'limited' ? 'border-primary' : 'border-slate-300 dark:border-slate-600'}`}>
                                             {driversCount === 'limited' && <div className="w-2.5 h-2.5 bg-primary rounded-full"></div>}

@@ -535,6 +535,7 @@
             }
         },
         "driversCount": {
+            "notAvailableRegion": "Not available for Tashkent (01/10)",
             "limited": {
                 "title": "Up to 5 people"
             },
