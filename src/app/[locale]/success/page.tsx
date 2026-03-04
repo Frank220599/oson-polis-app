@@ -48,7 +48,7 @@ export default function SuccessPage() {
                                     <span className="text-slate-500 dark:text-slate-400 text-sm font-medium">{t("policyDetails.insuranceCompany")}</span>
                                     <div className="flex items-center gap-2">
                                         <span className="material-symbols-outlined text-primary text-xl">security</span>
-                                        <span className="text-slate-900 dark:text-white text-lg font-bold">Apex Insurance</span>
+                                        <span className="text-slate-900 dark:text-white text-lg font-bold">Gross Insurance</span>
                                     </div>
                                 </div>
                                 <div className="bg-white dark:bg-slate-800 p-6 flex flex-col gap-1 hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors">

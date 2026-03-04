@@ -48,57 +48,6 @@ export default function AdminAnalyticsPage() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
-                                <div className="flex items-center gap-4 mb-4">
-                                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                                        <span className="material-symbols-outlined text-2xl">verified</span>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-lg font-bold">Apex Insurance</h3>
-                                        <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">{t("cards.premium")}</span>
-                                    </div>
-                                </div>
-                                <div className="space-y-3 mt-6">
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-slate-500 text-sm">{t("cards.sold")}</span>
-                                        <span className="font-bold">1,240</span>
-                                    </div>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-slate-500 text-sm">{t("cards.conversion")}</span>
-                                        <span className="font-bold text-primary">12.4%</span>
-                                    </div>
-                                    <div className="flex justify-between items-center border-t border-slate-100 dark:border-slate-800 pt-3">
-                                        <span className="text-slate-500 text-sm">{t("cards.payouts")}</span>
-                                        <span className="font-bold">$45,000</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
-                                <div className="flex items-center gap-4 mb-4">
-                                    <div className="w-12 h-12 rounded-lg bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400 flex items-center justify-center">
-                                        <span className="material-symbols-outlined text-2xl">health_and_safety</span>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-lg font-bold">Alfa Life</h3>
-                                        <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400">{t("cards.active")}</span>
-                                    </div>
-                                </div>
-                                <div className="space-y-3 mt-6">
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-slate-500 text-sm">{t("cards.sold")}</span>
-                                        <span className="font-bold">980</span>
-                                    </div>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-slate-500 text-sm">{t("cards.conversion")}</span>
-                                        <span className="font-bold text-primary">10.1%</span>
-                                    </div>
-                                    <div className="flex justify-between items-center border-t border-slate-100 dark:border-slate-800 pt-3">
-                                        <span className="text-slate-500 text-sm">{t("cards.payouts")}</span>
-                                        <span className="font-bold">$32,000</span>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
                                 <div className="flex items-center gap-4 mb-4">
@@ -148,39 +97,11 @@ export default function AdminAnalyticsPage() {
                                     <span>0</span>
                                 </div>
                                 <div className="flex-1 group flex flex-col items-center gap-2">
-                                    <div className="w-full bg-primary/20 rounded-t-lg relative flex items-end justify-center transition-all hover:bg-primary/40 h-[65%]">
-                                        <div className="w-2/3 bg-primary rounded-t-lg h-[90%]"></div>
-                                        <div className="absolute -top-8 bg-slate-800 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">$64.5k</div>
-                                    </div>
-                                    <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Apex</span>
-                                </div>
-                                <div className="flex-1 group flex flex-col items-center gap-2">
-                                    <div className="w-full bg-primary/20 rounded-t-lg relative flex items-end justify-center transition-all hover:bg-primary/40 h-[45%]">
-                                        <div className="w-2/3 bg-primary rounded-t-lg h-[80%]"></div>
-                                        <div className="absolute -top-8 bg-slate-800 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">$42.1k</div>
-                                    </div>
-                                    <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Alfa</span>
-                                </div>
-                                <div className="flex-1 group flex flex-col items-center gap-2">
                                     <div className="w-full bg-primary/20 rounded-t-lg relative flex items-end justify-center transition-all hover:bg-primary/40 h-[85%]">
                                         <div className="w-2/3 bg-primary rounded-t-lg h-[95%]"></div>
                                         <div className="absolute -top-8 bg-slate-800 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">$89.3k</div>
                                     </div>
                                     <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Gross</span>
-                                </div>
-                                <div className="flex-1 group flex flex-col items-center gap-2">
-                                    <div className="w-full bg-primary/20 rounded-t-lg relative flex items-end justify-center transition-all hover:bg-primary/40 h-[55%]">
-                                        <div className="w-2/3 bg-primary rounded-t-lg h-[85%]"></div>
-                                        <div className="absolute -top-8 bg-slate-800 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">$52.8k</div>
-                                    </div>
-                                    <span className="text-xs font-medium text-slate-600 dark:text-slate-400">EuroIns</span>
-                                </div>
-                                <div className="flex-1 group flex flex-col items-center gap-2">
-                                    <div className="w-full bg-primary/20 rounded-t-lg relative flex items-end justify-center transition-all hover:bg-primary/40 h-[70%]">
-                                        <div className="w-2/3 bg-primary rounded-t-lg h-[90%]"></div>
-                                        <div className="absolute -top-8 bg-slate-800 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">$68.4k</div>
-                                    </div>
-                                    <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Kapital</span>
                                 </div>
                             </div>
                         </div>
@@ -233,64 +154,6 @@ export default function AdminAnalyticsPage() {
                                             <td className="px-6 py-4">
                                                 <span className="flex items-center gap-1 text-green-600 dark:text-green-400 text-xs font-bold">
                                                     <span className="w-1.5 h-1.5 rounded-full bg-green-600 dark:bg-green-400"></span> {t("table.normal")}
-                                                </span>
-                                            </td>
-                                            <td className="px-6 py-4 text-right">
-                                                <button className="text-primary hover:underline text-sm font-bold">{t("table.details")}</button>
-                                            </td>
-                                        </tr>
-                                        <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                            <td className="px-6 py-4 font-bold text-slate-800 dark:text-slate-200">Apex Insurance</td>
-                                            <td className="px-6 py-4 text-sm">Жизнь, Здоровье</td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex items-center gap-2">
-                                                    <div className="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full max-w-[80px]">
-                                                        <div className="h-full bg-primary rounded-full" style={{ width: '85%' }}></div>
-                                                    </div>
-                                                    <span className="text-xs font-bold">85%</span>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex text-yellow-400">
-                                                    <span className="material-symbols-outlined text-sm">star</span>
-                                                    <span className="material-symbols-outlined text-sm">star</span>
-                                                    <span className="material-symbols-outlined text-sm">star</span>
-                                                    <span className="material-symbols-outlined text-sm">star</span>
-                                                    <span className="material-symbols-outlined text-sm">star</span>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <span className="flex items-center gap-1 text-green-600 dark:text-green-400 text-xs font-bold">
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-green-600 dark:bg-green-400"></span> {t("table.normal")}
-                                                </span>
-                                            </td>
-                                            <td className="px-6 py-4 text-right">
-                                                <button className="text-primary hover:underline text-sm font-bold">{t("table.details")}</button>
-                                            </td>
-                                        </tr>
-                                        <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                            <td className="px-6 py-4 font-bold text-slate-800 dark:text-slate-200">Alfa Life</td>
-                                            <td className="px-6 py-4 text-sm">Жизнь</td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex items-center gap-2">
-                                                    <div className="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full max-w-[80px]">
-                                                        <div className="h-full bg-orange-500 rounded-full" style={{ width: '64%' }}></div>
-                                                    </div>
-                                                    <span className="text-xs font-bold">64%</span>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex text-yellow-400">
-                                                    <span className="material-symbols-outlined text-sm">star</span>
-                                                    <span className="material-symbols-outlined text-sm">star</span>
-                                                    <span className="material-symbols-outlined text-sm">star</span>
-                                                    <span className="material-symbols-outlined text-sm">star_outline</span>
-                                                    <span className="material-symbols-outlined text-sm">star_outline</span>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <span className="flex items-center gap-1 text-orange-600 dark:text-orange-400 text-xs font-bold">
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-orange-600 dark:bg-orange-400"></span> {t("table.attention")}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 text-right">

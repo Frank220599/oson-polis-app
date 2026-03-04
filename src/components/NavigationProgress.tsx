@@ -5,10 +5,10 @@ import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 export function NavigationProgress() {
     return (
         <ProgressBar
-            height="3px"
-            color="#2563eb"
+            height="4px"
+            color="#1d77ff"
             options={{ showSpinner: false }}
-            shallowRouting
+            shallowRouting={false}
         />
     );
 }

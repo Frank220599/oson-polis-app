@@ -87,12 +87,12 @@ export interface SavePolicyResponse {
         click?: {
             status: number;
             url: string;
-            params: any;
+            params: unknown;
         };
         payme?: {
             status: number;
             url: string;
-            params: any;
+            params: unknown;
         };
     } | null;
 }
@@ -123,11 +123,7 @@ export class GrossInsuranceService {
         const password = process.env.GROSS_API_PASSWORD || '';
         const credentials = Buffer.from(`${phone}:${password}`).toString('base64');
 
-        console.log('[Auth Debug] URL:', this.getBaseUrl());
-        console.log('[Auth Debug] Phone:', phone);
-        console.log('[Auth Debug] Password parsed from ENV:', password);
-        console.log('[Auth Debug] Generated Base64:', credentials);
-
+        // Auth headers generated from environment variables
         return {
             'Authorization': `Basic ${credentials}`,
             'Content-Type': 'application/json',
@@ -135,7 +131,6 @@ export class GrossInsuranceService {
     }
 
     static async calculateWithKbm(data: CalcWithKbmRequest): Promise<CalcWithKbmResponse> {
-        console.log('[Gross API Request] POST /ru/osago-gross/calc-with-kbm', JSON.stringify(data, null, 2));
         const response = await fetch(`${this.getBaseUrl()}/ru/osago-gross/calc-with-kbm`, {
             method: 'POST',
             headers: this.getAuthHeaders(),
@@ -143,12 +138,10 @@ export class GrossInsuranceService {
         });
 
         const json = await response.json();
-        console.log('[Gross API Response] POST /ru/osago-gross/calc-with-kbm', JSON.stringify(json, null, 2));
         return json;
     }
 
     static async calculateOsago(data: CalcOsagoRequest): Promise<CalcOsagoResponse> {
-        console.log('[Gross API Request] POST /ru/osago-gross/get-calc-osago', JSON.stringify(data, null, 2));
         const response = await fetch(`${this.getBaseUrl()}/ru/osago-gross/get-calc-osago`, {
             method: 'POST',
             headers: this.getAuthHeaders(),
@@ -156,12 +149,10 @@ export class GrossInsuranceService {
         });
 
         const json = await response.json();
-        console.log('[Gross API Response] POST /ru/osago-gross/get-calc-osago', JSON.stringify(json, null, 2));
         return json;
     }
 
     static async savePolicyManual(data: SavePolicyRequest): Promise<SavePolicyResponse> {
-        console.log('[Gross API Request] POST /ru/osago-gross/save-policy-manual', JSON.stringify(data, null, 2));
         const response = await fetch(`${this.getBaseUrl()}/ru/osago-gross/save-policy-manual`, {
             method: 'POST',
             headers: this.getAuthHeaders(),
@@ -169,12 +160,10 @@ export class GrossInsuranceService {
         });
 
         const json = await response.json();
-        console.log('[Gross API Response] POST /ru/osago-gross/save-policy-manual', JSON.stringify(json, null, 2));
         return json;
     }
 
     static async getPolicyStatus(data: GetPolicyStatusRequest): Promise<GetPolicyStatusResponse> {
-        console.log('[Gross API Request] POST /ru/osago-gross/get-policy-status', JSON.stringify(data, null, 2));
         const response = await fetch(`${this.getBaseUrl()}/ru/osago-gross/get-policy-status`, {
             method: 'POST',
             headers: this.getAuthHeaders(),
@@ -182,7 +171,6 @@ export class GrossInsuranceService {
         });
 
         const json = await response.json();
-        console.log('[Gross API Response] POST /ru/osago-gross/get-policy-status', JSON.stringify(json, null, 2));
         return json;
     }
 }
