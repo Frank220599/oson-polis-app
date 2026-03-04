@@ -547,6 +547,11 @@
             "privacy": "Privacy",
             "terms": "Terms",
             "contacts": "Contacts"
+        },
+        "checkout": {
+            "errorTemporary": "Service is temporarily unavailable, please try again.",
+            "errorTitle": "Oops, something went wrong!",
+            "errorClose": "Close & Try Again"
         }
     },
     "Success": {

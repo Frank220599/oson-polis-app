@@ -11,6 +11,7 @@ export function useClientSearchParams(): URLSearchParams | null {
     const [params, setParams] = useState<URLSearchParams | null>(null);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setParams(new URLSearchParams(window.location.search));
     }, []);
 

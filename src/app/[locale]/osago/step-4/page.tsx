@@ -7,6 +7,19 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useClientSearchParams } from "@/hooks/useClientSearchParams";
 
+const RELATION_MAP: Record<string, number> = {
+    'father': 1,
+    'older_brother': 2,
+    'younger_brother': 3,
+    'wife': 4,
+    'mother': 5,
+    'husband': 6,
+    'son': 7,
+    'daughter': 8,
+    'older_sister': 9,
+    'younger_sister': 10
+};
+
 export default function OsagoStep4Page() {
     const t = useTranslations("OsagoStep4");
     const searchParams = useClientSearchParams();
@@ -25,9 +38,12 @@ export default function OsagoStep4Page() {
     const [techPassportSeries, setTechPassportSeries] = useState("");
     const [techPassportNumber, setTechPassportNumber] = useState("");
     const [amount, setAmount] = useState<number | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [driversData, setDriversData] = useState<any[]>([]);
     const [checkoutError, setCheckoutError] = useState<string | null>(null);
+    const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
 
+    /* eslint-disable react-hooks/set-state-in-effect */
     useEffect(() => {
         if (!searchParams) return;
         setPlate(searchParams.get("plate") || "");
@@ -63,7 +79,7 @@ export default function OsagoStep4Page() {
                 details: {
                     start_date: new Date().toLocaleDateString('ru-RU').replace(/\//g, '.'), // Expected: DD.MM.YYYY
                     period_id: duration === 'year' ? 1 : 2,
-                    number_drivers_id: driversCount === 'limited' ? 1 : 2,
+                    number_drivers_id: driversCount === 'limited' ? 4 : 1,
                     phone_number: phone.replace(/[^0-9+]/g, ''),
                     amount_uzs: amount || 56000
                 },
@@ -86,23 +102,14 @@ export default function OsagoStep4Page() {
                     is_driver: true,
                     relative: 0
                 },
-                drivers: driversCount === 'limited' && driversData.length > 0
-                    ? driversData.map(d => ({
+                ...(driversCount === 'limited' && driversData.length > 0 ? {
+                    drivers: driversData.map(d => ({
                         birthdate: d.birthDate, // YYYY-MM-DD
                         pass_seria: d.passportSeries,
                         pass_number: d.passportNumber,
-                        relative: d.relation === 'father' ? 1 :
-                            d.relation === 'older_brother' ? 2 :
-                                d.relation === 'younger_brother' ? 3 :
-                                    d.relation === 'wife' ? 4 :
-                                        d.relation === 'mother' ? 5 :
-                                            d.relation === 'husband' ? 6 :
-                                                d.relation === 'son' ? 7 :
-                                                    d.relation === 'daughter' ? 8 :
-                                                        d.relation === 'older_sister' ? 9 :
-                                                            d.relation === 'younger_sister' ? 10 : 0
+                        relative: RELATION_MAP[d.relation] || 0
                     }))
-                    : []
+                } : {})
             };
 
             const res = await fetch('/api/osago/save-policy', {
@@ -123,14 +130,17 @@ export default function OsagoStep4Page() {
                 }
             } else {
                 console.error("Save Policy Error:", data);
-                // Sandbox currently returns 502, handle this gracefully in UI
-                setCheckoutError(t("checkout.errorTemporary") || 'Test environment is currently offline. Your data is valid, but we cannot create the policy right now.');
+                // Sandbox currently returns 502 or custom error messages, handle this gracefully in UI
+                const errorMessage = data?.message || t("checkout.errorTemporary") || 'Test environment is currently offline. Your data is valid, but we cannot create the policy right now.';
+                setCheckoutError(errorMessage);
+                setShowErrorModal(true);
                 setIsProcessing(false);
             }
 
         } catch (error) {
             console.error(error);
             setCheckoutError('Unexpected network error occurred. Please try again.');
+            setShowErrorModal(true);
             setIsProcessing(false);
         }
     };
@@ -176,7 +186,7 @@ export default function OsagoStep4Page() {
                                     {/* Payme */}
                                     <div onClick={() => setPaymentMethod('payme')} className={`cursor-pointer border-2 transition-all p-5 flex items-center gap-4 rounded-xl relative ${paymentMethod === 'payme' ? 'border-primary bg-primary/5 ring-1 ring-primary/20' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-200 dark:hover:border-slate-700'}`}>
                                         <div className="w-14 h-14 rounded-xl overflow-hidden flex items-center justify-center">
-                                            <Image src="/payme.svg" alt="Payme" width={56} height={56} className="object-cover" />
+                                            <Image src="/payme.svg" alt="Payme" width={56} height={56} className="object-cover" style={{ width: 'auto', height: 'auto' }} />
                                         </div>
                                         <div className="flex-grow">
                                             <h4 className="font-bold text-slate-900 dark:text-white text-lg">{t("paymentMethod.payme.title")}</h4>
@@ -190,7 +200,7 @@ export default function OsagoStep4Page() {
                                     {/* Click */}
                                     <div onClick={() => setPaymentMethod('click')} className={`cursor-pointer border-2 transition-all p-5 flex items-center gap-4 rounded-xl relative ${paymentMethod === 'click' ? 'border-primary bg-primary/5 ring-1 ring-primary/20' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-200 dark:hover:border-slate-700'}`}>
                                         <div className="w-14 h-14 rounded-xl overflow-hidden flex items-center justify-center p-1" style={{ background: '#00309C' }}>
-                                            <Image src="/click.svg" alt="Click" width={56} height={56} className="object-contain" />
+                                            <Image src="/click.svg" alt="Click" width={56} height={56} className="object-contain" style={{ width: 'auto', height: 'auto' }} />
                                         </div>
                                         <div className="flex-grow">
                                             <h4 className="font-bold text-slate-900 dark:text-white text-lg">{t("paymentMethod.click.title")}</h4>
@@ -204,7 +214,7 @@ export default function OsagoStep4Page() {
                                     {/* Uzum */}
                                     <div onClick={() => setPaymentMethod('uzum')} className={`cursor-pointer border-2 transition-all p-5 flex items-center gap-4 rounded-xl relative ${paymentMethod === 'uzum' ? 'border-primary bg-primary/5 ring-1 ring-primary/20' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-200 dark:hover:border-slate-700'}`}>
                                         <div className="w-14 h-14 rounded-xl overflow-hidden flex items-center justify-center">
-                                            <Image src="/uzum.svg" alt="Uzum" width={56} height={56} className="object-contain" />
+                                            <Image src="/uzum.svg" alt="Uzum" width={56} height={56} className="object-contain" style={{ width: 'auto', height: 'auto' }} />
                                         </div>
                                         <div className="flex-grow">
                                             <h4 className="font-bold text-slate-900 dark:text-white text-lg">{t("paymentMethod.uzum.title")}</h4>
@@ -245,9 +255,6 @@ export default function OsagoStep4Page() {
                                             </>
                                         )}
                                     </button>
-                                    {checkoutError && (
-                                        <p className="text-red-500 text-xs mt-3 text-center md:text-right max-w-xs">{checkoutError}</p>
-                                    )}
                                 </div>
                             </div>
                         </div>
@@ -294,6 +301,31 @@ export default function OsagoStep4Page() {
                     </div>
                 </div>
             </main>
+
+            {/* Error Modal */}
+            {showErrorModal && checkoutError && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+                        <div className="p-8 text-center flex flex-col items-center">
+                            <div className="w-16 h-16 bg-red-100 dark:bg-red-500/10 rounded-full flex items-center justify-center mb-6 text-red-500">
+                                <span className="material-symbols-outlined text-3xl">error</span>
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
+                                {t("checkout.errorTitle") || "Oops, something went wrong!"}
+                            </h3>
+                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+                                {checkoutError}
+                            </p>
+                            <button
+                                onClick={() => setShowErrorModal(false)}
+                                className="w-full h-14 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold rounded-xl transition-colors"
+                            >
+                                {t("checkout.errorClose") || "Close & Try Again"}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 }

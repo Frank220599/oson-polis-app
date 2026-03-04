@@ -178,29 +178,38 @@ export default function OsagoStep2Page() {
                                                 <input
                                                     value={phoneNumber}
                                                     onChange={(e) => {
-                                                        let val = e.target.value.replace(/\D/g, "");
+                                                        let val = e.target.value;
+                                                        let digits = "";
 
-                                                        // Always keep +998
-                                                        if (!val.startsWith("998")) {
-                                                            val = "998" + val;
+                                                        if (!val.startsWith("+998")) {
+                                                            digits = val.replace(/\D/g, "");
+                                                            if (digits.startsWith("998") && digits.length > 9) {
+                                                                digits = digits.slice(3);
+                                                            }
+                                                        } else {
+                                                            digits = val.slice(4).replace(/\D/g, "");
                                                         }
 
-                                                        // Limit to 12 digits (998 + 9 digits)
-                                                        val = val.slice(0, 12);
+                                                        digits = digits.slice(0, 9);
 
-                                                        // Format: +998 (XX) XXX XX XX
-                                                        let formatted = "+998";
-                                                        if (val.length > 3) {
-                                                            formatted += " (" + val.slice(3, 5);
+                                                        if (digits.length === 0) {
+                                                            setPhoneNumber("+998 ");
+                                                            setErrors(prev => ({ ...prev, phone: undefined }));
+                                                            return;
                                                         }
-                                                        if (val.length > 5) {
-                                                            formatted += ") " + val.slice(5, 8);
+
+                                                        let formatted = "+998 ";
+                                                        if (digits.length > 0) {
+                                                            formatted += "(" + digits.slice(0, 2);
                                                         }
-                                                        if (val.length > 8) {
-                                                            formatted += " " + val.slice(8, 10);
+                                                        if (digits.length > 2) {
+                                                            formatted += ") " + digits.slice(2, 5);
                                                         }
-                                                        if (val.length > 10) {
-                                                            formatted += " " + val.slice(10, 12);
+                                                        if (digits.length > 5) {
+                                                            formatted += " " + digits.slice(5, 7);
+                                                        }
+                                                        if (digits.length > 7) {
+                                                            formatted += " " + digits.slice(7, 9);
                                                         }
 
                                                         setPhoneNumber(formatted);

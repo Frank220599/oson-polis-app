@@ -21,7 +21,7 @@ export function Offers({ plate, licenseSeries, licenseNumber, drivers }: OffersP
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 hover:border-primary/30 transition-colors">
                     <div className="flex items-center gap-4 w-full sm:w-auto">
                         <div className="size-12 bg-white rounded-lg shadow-sm flex items-center justify-center border border-slate-100 p-1">
-                            <Image src="/gross-logo.svg" alt="Gross Insurance" width={40} height={40} className="object-contain" />
+                            <Image src="/gross-logo.svg" alt="Gross Insurance" width={40} height={40} className="object-contain" style={{ width: 'auto', height: 'auto' }} />
                         </div>
                         <div>
                             <h4 className="font-bold text-lg text-slate-900 dark:text-white">Gross Insurance</h4>

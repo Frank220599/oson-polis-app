@@ -548,6 +548,11 @@
             "privacy": "Maxfiylik",
             "terms": "Oferta",
             "contacts": "Kontaktlar"
+        },
+        "checkout": {
+            "errorTemporary": "Xizmat vaqtincha ishlamayapti, iltimos qaytadan urinib ko'ring.",
+            "errorTitle": "Xatolik yuz berdi!",
+            "errorClose": "Yopish va qaytadan urinish"
         }
     },
     "Success": {
